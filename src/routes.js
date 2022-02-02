@@ -22,13 +22,57 @@ router.post("/students", multerConfig.single("file"), async (request, response) 
     input: readableFile
   })
 
+  const students = []
+
   for await (let line of studentLine) {
     const studentLineSplit = line.split(";")
 
-  console.log(results);
+    students.push({
+      UsuarioNome: studentLineSplit[2],
+      ProvaDescricao: studentLineSplit[3],
+      ProvaId: Number(studentLineSplit[4]),
+      Nis: Number(studentLineSplit[5]),
+      Disciplina: studentLineSplit[6],
+      Escola: studentLineSplit[7],
+      AnoCursado: Number(studentLineSplit[8]),
+      Turma: studentLineSplit[9],
+    })
   }
 
-  return response.send()
+  const [,...studentsAll] = students
+
+  const resultGroupStudents = [];
+
+
+  for (let i = 1; i < studentsAll.length; i += 1) {
+    const numberOfStudents = studentsAll.filter((a) => a.Nis === students[i].Nis);
+
+    const resultStudents = {
+      UsuarioNome: studentsAll[i].UsuarioNome,
+      Nis: studentsAll[i].Nis,
+      Escola: studentsAll[i].Escola,
+      AnoCursado: studentsAll[i].AnoCursado,
+      Turma: studentsAll[i].Turma,
+    };
+
+    i += numberOfStudents.length;
+
+    for (let j = 1; j <= numberOfStudents.length; j += 1) {
+      resultStudents[`ProvaId${j}`] = studentsAll[j - 1].ProvaId;
+    }
+
+    for (let j = 1; j <= numberOfStudents.length; j += 1) {
+      resultStudents[`ProvaDescricao${j}`] = studentsAll[j - 1].ProvaDescricao;
+    }
+
+    for (let j = 1; j <= numberOfStudents.length; j += 1) {
+      resultStudents[`Disciplina${j}`] = studentsAll[j - 1].Disciplina;
+    }
+
+    resultGroupStudents.push(resultStudents);
+  }
+
+  return response.json(resultGroupStudents)
 })
 
 module.exports = router;
