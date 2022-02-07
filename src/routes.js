@@ -8,7 +8,7 @@ const multerConfig = multer();
 const router = Router();
 
 
-router.post("/students", multerConfig.single("file"), async (request, response) => {
+router.post("/students-list-card", multerConfig.single("file"), async (request, response) => {
 
 
   const { file } = request
@@ -58,15 +58,15 @@ router.post("/students", multerConfig.single("file"), async (request, response) 
     i += howManyStudents.length;
 
     for (let j = 1; j <= howManyStudents.length; j += 1) {
-      resultStudents[`ProvaId${j}`] = studentsAll[j - 1].ProvaId;
+      resultStudents[`ProvaId${j}`] = howManyStudents[j - 1].ProvaId;
     }
 
     for (let j = 1; j <= howManyStudents.length; j += 1) {
-      resultStudents[`ProvaDescricao${j}`] = studentsAll[j - 1].ProvaDescricao;
+      resultStudents[`ProvaDescricao${j}`] = howManyStudents[j - 1].ProvaDescricao;
     }
 
     for (let j = 1; j <= howManyStudents.length; j += 1) {
-      resultStudents[`Disciplina${j}`] = studentsAll[j - 1].Disciplina;
+      resultStudents[`Disciplina${j}`] = howManyStudents[j - 1].Disciplina;
     }
 
     resultGroupStudents.push(resultStudents);
@@ -75,7 +75,7 @@ router.post("/students", multerConfig.single("file"), async (request, response) 
   return response.json(resultGroupStudents)
 })
 
-router.post("/teachers", multerConfig.single("file"), async (request, response) => {
+router.post("/teachers-import", multerConfig.single("file"), async (request, response) => {
 
 
   const { file } = request;
@@ -121,19 +121,19 @@ router.post("/teachers", multerConfig.single("file"), async (request, response) 
       lastname: teacherAll[i].lastname,
       city: teacherAll[i].city
     };
+ 
+      i += howManyTeacher.length;
+  
+      for (let j = 1; j <= howManyTeacher.length; j += 1) {
+        resultTeachers[`course${j}`] = howManyTeacher[j - 1].course;
+      }
+  
+      for (let j = 1; j <= howManyTeacher.length; j += 1) {
+        resultTeachers[`role${j}`] = howManyTeacher[j - 1].role;
+      }
 
-    i += howManyTeacher.length;
-
-    for (let j = 1; j <= howManyTeacher.length; j += 1) {
-      resultTeachers[`course${j}`] = teacherAll[j - 1].course;
-    }
-
-    for (let j = 1; j <= howManyTeacher.length; j += 1) {
-      resultTeachers[`role${j}`] = teacherAll[j - 1].role;
-    }
-
-    resultGroupTeachers.push(resultTeachers);
-  }
+      resultGroupTeachers.push(resultTeachers);
+    };
 
   return response.json(resultGroupTeachers)
 })
