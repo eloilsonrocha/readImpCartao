@@ -2,10 +2,15 @@ const { Router } = require("express");
 const multer = require("multer");
 const readline = require("readline");
 const { Readable } = require("stream");
+const XLSX = require('xlsx');
 
 const multerConfig = multer();
 
 const router = Router();
+
+router.get("/test", (request, response) => {
+  response.json({ message: "Ok api running" });
+})
 
 
 router.post("/students-list-card", multerConfig.single("file"), async (request, response) => {
@@ -92,7 +97,7 @@ router.post("/teachers-import", multerConfig.single("file"), async (request, res
   const teachers = [];
 
   for await (let line of teacherLine) {
-    const teacherLineSplit = line.split(";");
+    const teacherLineSplit = line.split("," || ";");
 
     teachers.push({
       username: teacherLineSplit[0],
@@ -121,21 +126,97 @@ router.post("/teachers-import", multerConfig.single("file"), async (request, res
       lastname: teacherAll[i].lastname,
       city: teacherAll[i].city
     };
- 
-      i += howManyTeacher.length;
-  
-      for (let j = 1; j <= howManyTeacher.length; j += 1) {
-        resultTeachers[`course${j}`] = howManyTeacher[j - 1].course;
-      }
-  
-      for (let j = 1; j <= howManyTeacher.length; j += 1) {
-        resultTeachers[`role${j}`] = howManyTeacher[j - 1].role;
-      }
 
-      resultGroupTeachers.push(resultTeachers);
-    };
+    i += howManyTeacher.length;
+
+    for (let j = 1; j <= howManyTeacher.length; j += 1) {
+      resultTeachers[`course${j}`] = howManyTeacher[j - 1].course;
+      resultTeachers[`role${j}`] = howManyTeacher[j - 1].role;
+    }
+
+    resultGroupTeachers.push(resultTeachers);
+  };
 
   return response.json(resultGroupTeachers)
+})
+
+router.post("/descriptors", multerConfig.single("file"), async (request, response) => {
+
+
+  const { file } = request;
+  const { buffer } = file;
+
+  const readableFile = new Readable();
+  readableFile.push(buffer.toString("utf-8"));
+  readableFile.push(null);
+
+  const descriptorLine = readline.createInterface({
+    input: readableFile
+  })
+
+  const descriptors = [];
+
+  for await (let line of descriptorLine) {
+    const descriptorLineSplit = line.split(";");
+
+    descriptors.push({
+      IdDescritor: descriptorLineSplit[0],
+      CodigoDescritor: descriptorLineSplit[1],
+      DescricaoDescritor: descriptorLineSplit[2],
+      AnoCursado: descriptorLineSplit[7],
+      DataInclusao: descriptorLineSplit[8],
+      Ativo: descriptorLineSplit[9],
+      EmUso: descriptorLineSplit[10]
+    });
+
+  }
+
+  const [, ...descriptorAll] = descriptors;
+
+  const resultGroupDescriptors = [];
+
+  for (let i = 1; i < descriptorAll.length; i += 1) {
+    const howManyDescriptor = descriptorAll.filter((
+      descriptor) => descriptor.DescricaoDescritor === descriptorAll[i].DescricaoDescritor &&
+      descriptor.AnoCursado === descriptorAll[i].AnoCursado
+    );
+
+    const resultDescriptors = {
+      DescricaoDescritor: descriptorAll[i].DescricaoDescritor,
+      AnoCursado: descriptorAll[i].AnoCursado
+    };
+
+    i += howManyDescriptor.length;
+
+    for (let j = 1; j <= howManyDescriptor.length; j += 1) {
+      resultDescriptors[`IdDescritor${j}`] = howManyDescriptor[j - 1].IdDescritor;
+      resultDescriptors[`CodigoDescritor${j}`] = howManyDescriptor[j - 1].CodigoDescritor;
+      resultDescriptors[`DescricaoDescritor${j}`] = howManyDescriptor[j - 1].DescricaoDescritor;
+      resultDescriptors[`AnoCursado${j}`] = howManyDescriptor[j - 1].AnoCursado;
+      resultDescriptors[`DataInclusao${j}`] = howManyDescriptor[j - 1].DataInclusao;
+      resultDescriptors[`Ativo${j}`] = howManyDescriptor[j - 1].Ativo;
+      resultDescriptors[`EmUso${j}`] = howManyDescriptor[j - 1].EmUso;
+    }
+
+    resultGroupDescriptors.push(resultDescriptors);
+  };
+
+  const jsonToExcel = () => {
+    const workSheet = XLSX.utils.json_to_sheet(resultGroupDescriptors);
+    const workBook = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(workBook, workSheet, "Descriptors")
+
+    XLSX.write(workBook, { bookType: "xlsx", type: "buffer" })
+
+    XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
+
+    XLSX.writeFile(workBook, "descriptores.xlsx")
+  }
+
+  jsonToExcel()
+
+  return response.json(resultGroupDescriptors)
 })
 
 
