@@ -147,7 +147,7 @@ router.post("/descriptors", multerConfig.single("file"), async (request, respons
   const { buffer } = file;
 
   const readableFile = new Readable();
-  readableFile.push(buffer.toString("utf-8"));
+  readableFile.push(buffer.toString("utf8"));
   readableFile.push(null);
 
   const descriptorLine = readline.createInterface({
@@ -162,11 +162,11 @@ router.post("/descriptors", multerConfig.single("file"), async (request, respons
     descriptors.push({
       IdDescritor: descriptorLineSplit[0],
       CodigoDescritor: descriptorLineSplit[1],
-      DescricaoDescritor: descriptorLineSplit[2],
-      AnoCursado: descriptorLineSplit[7],
-      DataInclusao: descriptorLineSplit[8],
-      Ativo: descriptorLineSplit[9],
-      EmUso: descriptorLineSplit[10]
+      DescricaoDescritor: descriptorLineSplit[2].trim(),
+      AnoCursado: descriptorLineSplit[3],
+      DataInclusao: descriptorLineSplit[4],
+      Ativo: descriptorLineSplit[5],
+      EmUso: descriptorLineSplit[6]
     });
 
   }
@@ -211,7 +211,7 @@ router.post("/descriptors", multerConfig.single("file"), async (request, respons
 
     XLSX.write(workBook, { bookType: "xlsx", type: "binary" })
 
-    XLSX.writeFile(workBook, "descriptores.xlsx")
+    XLSX.writeFile(workBook, "DESCRITORES DUPLICADOS.xlsx")
   }
 
   jsonToExcel()
