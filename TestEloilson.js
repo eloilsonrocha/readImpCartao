@@ -708,7 +708,6 @@ for (let i = 0; i < alunos.length; i += 1) {
   }
 
   result.push(resultAlunos);
-  // console.log(quantosAlunos.length);
 }
 
 result.forEach((aluno) => {

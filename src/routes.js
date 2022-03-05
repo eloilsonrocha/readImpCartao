@@ -44,8 +44,8 @@ router.post("/students-list-card", multerConfig.single("file"), async (request, 
     })
   }
 
-  resultStudentsFull = []
-  groupedResultStudents = new Map();
+  const resultStudentsFull = []
+  const groupedResultStudents = new Map();
 
   for (let i = 1; i < students.length; i += 1) {
     const howManyStudents = students.filter((student) => student.Nis === students[i].Nis);
@@ -158,7 +158,6 @@ router.post("/descriptors", multerConfig.single("file"), async (request, respons
   })
 
   const descriptors = [];
-  const resultGroupDescriptors = [];
 
   for await (let line of descriptorLine) {
     const descriptorLineSplit = line.split(";");
@@ -172,23 +171,22 @@ router.post("/descriptors", multerConfig.single("file"), async (request, respons
       Ativo: descriptorLineSplit[5],
       EmUso: descriptorLineSplit[6]
     });
-
   }
 
-  const [, ...descriptorAll] = descriptors;
 
-  for (let i = 1; i < descriptorAll.length; i += 1) {
-    const howManyDescriptor = descriptorAll.filter((
-      descriptor) => descriptor.DescricaoDescritor === descriptorAll[i].DescricaoDescritor &&
-      descriptor.AnoCursado === descriptorAll[i].AnoCursado
+  const descriptorsFull = [];
+  const groupedResultDescriptors = new Map();
+
+  for (let i = 1; i < descriptors.length; i += 1) {
+    const howManyDescriptor = descriptors.filter((
+      descriptor) => descriptor.DescricaoDescritor === descriptors[i].DescricaoDescritor &&
+      descriptor.AnoCursado === descriptors[i].AnoCursado
     );
 
     const resultDescriptors = {
-      DescricaoDescritor: descriptorAll[i].DescricaoDescritor,
-      AnoCursado: descriptorAll[i].AnoCursado
+      DescricaoDescritor: descriptors[i].DescricaoDescritor,
+      AnoCursado: descriptors[i].AnoCursado
     };
-
-    i += howManyDescriptor.length;
 
     for (let j = 1; j <= howManyDescriptor.length; j += 1) {
       resultDescriptors[`IdDescritor${j}`] = howManyDescriptor[j - 1].IdDescritor;
@@ -199,12 +197,18 @@ router.post("/descriptors", multerConfig.single("file"), async (request, respons
       resultDescriptors[`Ativo${j}`] = howManyDescriptor[j - 1].Ativo;
       resultDescriptors[`EmUso${j}`] = howManyDescriptor[j - 1].EmUso;
 
-      resultGroupDescriptors.push(resultDescriptors);
+      descriptorsFull.push(resultDescriptors);
     }
   };
 
+  descriptorsFull.forEach((descriptor) => {
+    if (!groupedResultDescriptors.has(descriptor.DescricaoDescritor)) {
+      groupedResultDescriptors.set(descriptor.DescricaoDescritor, descriptor)
+    }
+  });
+
   const jsonToExcel = () => {
-    const workSheet = XLSX.utils.json_to_sheet(resultGroupDescriptors);
+    const workSheet = XLSX.utils.json_to_sheet([...groupedResultDescriptors.values()]);
     const workBook = XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(workBook, workSheet, "Descriptors")
@@ -218,7 +222,7 @@ router.post("/descriptors", multerConfig.single("file"), async (request, respons
 
   jsonToExcel()
 
-  return response.json(resultGroupDescriptors.length)
+  return response.json([...groupedResultDescriptors.values()])
 })
 
 
