@@ -165,7 +165,7 @@ router.post("/descriptors", multerConfig.single("file"), async (request, respons
     descriptors.push({
       IdDescritor: descriptorLineSplit[0],
       CodigoDescritor: descriptorLineSplit[1],
-      DescricaoDescritor: descriptorLineSplit[2].trim().toLowerCase(),
+      DescricaoDescritor: descriptorLineSplit[2].trim().normalize('NFD').replace(/[\u0300-\u036f]/g, ""),
       AnoCursado: descriptorLineSplit[3],
       DataInclusao: descriptorLineSplit[4],
       Ativo: descriptorLineSplit[5],
@@ -178,8 +178,8 @@ router.post("/descriptors", multerConfig.single("file"), async (request, respons
 
   for (let i = 1; i < descriptors.length; i += 1) {
     const howManyDescriptor = descriptors.filter((
-      descriptor) => descriptor.DescricaoDescritor == descriptors[i].DescricaoDescritor &&
-      descriptor.AnoCursado == descriptors[i].AnoCursado
+      descriptor) => descriptor.DescricaoDescritor === descriptors[i].DescricaoDescritor &&
+      descriptor.AnoCursado === descriptors[i].AnoCursado
     );
 
     const resultDescriptors = {
