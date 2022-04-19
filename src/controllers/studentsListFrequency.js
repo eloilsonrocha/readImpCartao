@@ -1,6 +1,5 @@
 const readline = require("readline");
 const { Readable } = require("stream");
-const { XLSX } = require("xlsx");
 
 const studentsListFrequency = async (request, response) => {
 
@@ -21,46 +20,40 @@ const studentsListFrequency = async (request, response) => {
     const schoolsLineSplit = line.split(";")
 
     schools.push({
-      Escola: schoolsLineSplit[0],
-      UsuarioNome: schoolsLineSplit[1],
-      Turma: schoolsLineSplit[4],
-      AnoCursado: schoolsLineSplit[5],
+      name: schoolsLineSplit[0],
+      studant: schoolsLineSplit[1],
+      class: schoolsLineSplit[4],
+      currentYear: schoolsLineSplit[5],
     })
   }
 
-  const resultStudentsFull = []
-  const groupedResultSchools = new Map();
-
-  for (let i = 1; i < schools.length; i += 1) {
-    const howManySchools = schools.filter((school) => school.Escola === schools[i].Escola);
-
-    
-    const resultSchools = [{
-     name: schools[i].Escola,
-     classes: []      
-    }];
-
-    for (let j = 1; j <= howManySchools.length; j += 1) {
-
-      console.log(howManySchools[j]);
-
-        const students = howManySchools.filter(school => school.AnoCursado === howManySchools[j].AnoCursado && school.Turma === howManySchools[j].Turma)
-
-        resultSchools[0].classes.push({ AnoCursado: howManySchools[j].AnoCursado, Turma: howManySchools[j].Turma, students })
-    }
-    
-    resultSchools.sort((a, b) => a.AnoCursado > b.AnoCursado ? 1 : a.AnoCursado < b.nomeTurma ? -1 : 0)
-
-    resultStudentsFull.push(resultSchools);
+  const items = [];
+  for (let i = 1; i < schools.length - 1; i += 1) {
+    items.push({
+      name: schools[i].name,
+      class: schools[i].class,
+      currentYear: schools[i].currentYear
+    });
   };
 
-  resultStudentsFull.forEach((schools) => {
-    if (!groupedResultSchools.has(schools.escola)) {
-      groupedResultSchools.set(schools.escola, schools)
+  const uniqueItems = Array.from(new Set(items.map(JSON.stringify))).map(JSON.parse);
+  const result = [];
+
+  const result = uniqueItems.map(school => {
+    const studants = schools.filter((filter) =>
+      school.name === filter.name &&
+      school.currentYear === filter.currentYear &&
+      school.class === filter.class).map(schoolFounds => schoolFounds.studant);
+
+    return {
+      ...school,
+      classes: studants
     }
   });
 
-  return response.json([...groupedResultSchools.values()]);
+  result.sort((a, b) => a.currentYear > b.currentYear ? 1 : a.currentYear < b.class ? -1 : 0)
+
+  return response.json(result);
 
 };
 
