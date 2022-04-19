@@ -21,7 +21,7 @@ const studentsListFrequency = async (request, response) => {
 
     schools.push({
       nameSchool: schoolsLineSplit[0],
-      studant: schoolsLineSplit[1],
+      student: schoolsLineSplit[1],
       birthDate: schoolsLineSplit[2],
       userCPFNIS: schoolsLineSplit[3],
       class: schoolsLineSplit[4],
@@ -41,25 +41,25 @@ const studentsListFrequency = async (request, response) => {
   const uniqueItems = Array.from(new Set(items.map(JSON.stringify))).map(JSON.parse);
 
   const result = uniqueItems.map(school => {
-    const studants = schools.filter((filter) =>
+    const students = schools.filter((filter) =>
       school.nameSchool === filter.nameSchool &&
       school.currentYear === filter.currentYear &&
       school.class === filter.class)
 
-    const dataStudants = studants.map((studantOfClass, index) =>
+    const dataStudents = students.map((studentOfClass, index) =>
       [{
         order: index + 1,
-        nameSchoolStudent: studantOfClass.studant,
-        birthDate: studantOfClass.birthDate,
-        userCPFNIS: studantOfClass.userCPFNIS
+        nameSchoolStudent: studentOfClass.student,
+        birthDate: studentOfClass.birthDate,
+        userCPFNIS: studentOfClass.userCPFNIS
       }]
     )
 
-    const countStudents = dataStudants.length
+    const countStudents = dataStudents.length
 
     return {
       ...school,
-      classes: dataStudants,
+      classes: dataStudents,
       countStudents
     }
 
