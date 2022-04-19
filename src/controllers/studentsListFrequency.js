@@ -37,7 +37,6 @@ const studentsListFrequency = async (request, response) => {
   };
 
   const uniqueItems = Array.from(new Set(items.map(JSON.stringify))).map(JSON.parse);
-  const result = [];
 
   const result = uniqueItems.map(school => {
     const studants = schools.filter((filter) =>
