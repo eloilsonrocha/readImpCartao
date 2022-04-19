@@ -1,50 +1,60 @@
 [
-  {
-    "username": "biosheilalima@gmail.com",
-    "password": "",
-    "firstname": "Sheila",
-    "lastname": "Franco de Oliveira Lima",
-    "email": "biosheilalima@gmail.com",
-    "city": "VALPARAISO",
-    "course1": "CORA CORALINA - CIÊNCIAS - 6A - 2022",
-    "course2": "CORA CORALINA - CIÊNCIAS - 6B - 2022",
-    "course3": "CORA CORALINA - CIÊNCIAS - 6C - 2022",
-    "course4": "CORA CORALINA - CIÊNCIAS - 6D - 2022",
-    "course5": "CORA CORALINA - CIÊNCIAS - 7A - 2022",
-    "course6": "CORA CORALINA - CIÊNCIAS - 7B - 2022",
-    "course7": "CORA CORALINA - CIÊNCIAS - 7C - 2022",
-    "course8": "CORA CORALINA - CIÊNCIAS - 7D - 2022",
-    "role1": "editingteacher",
-    "role2": "editingteacher",
-    "role3": "editingteacher",
-    "role4": "editingteacher",
-    "role5": "editingteacher",
-    "role6": "editingteacher",
-    "role7": "editingteacher",
-    "role8": "editingteacher"
-  },
-  {
-    "username": "fabio_b_amaral@hotmail.com",
-    "password": "",
-    "firstname": "PROFESSOR FÁBIO",
-    "lastname": "de Barros Amaral",
-    "email": "fabio_b_amaral@hotmail.com",
-    "city": "VALPARAISO",
-    "course1": "CORA CORALINA - CIÊNCIAS - 6A - 2022",
-    "course2": "CORA CORALINA - CIÊNCIAS - 6B - 2022",
-    "course3": "CORA CORALINA - CIÊNCIAS - 6C - 2022",
-    "course4": "CORA CORALINA - CIÊNCIAS - 6D - 2022",
-    "course5": "CORA CORALINA - CIÊNCIAS - 7A - 2022",
-    "course6": "CORA CORALINA - CIÊNCIAS - 7B - 2022",
-    "course7": "CORA CORALINA - CIÊNCIAS - 7C - 2022",
-    "course8": "CORA CORALINA - CIÊNCIAS - 7D - 2022",
-    "role1": "editingteacher",
-    "role2": "editingteacher",
-    "role3": "editingteacher",
-    "role4": "editingteacher",
-    "role5": "editingteacher",
-    "role6": "editingteacher",
-    "role7": "editingteacher",
-    "role8": "editingteacher"
-  }
+	[
+		"ESCOLA MUNICIPAL ADOLFO JOSÉ DA SILVA",
+		{
+			"AnoCursado": "1",
+			"Turma": "A",
+			"Students": "CARLOS GUILHERME DOS SANTOS"
+		},
+		{
+			"AnoCursado": "1",
+			"Turma": "A",
+			"Students": "CLESSIA SOFIA RODRIGUES MATOS"
+		},
+		{
+			"AnoCursado": "1",
+			"Turma": "A",
+			"Students": "EMILLY CRISTHYNA NASCIMENTO DOS SANTOS"
+		},
+		{
+			"AnoCursado": "2",
+			"Turma": "A",
+			"Students": "ANA CLARA PEREIRA DA COSTA"
+		},
+		{
+			"AnoCursado": "2",
+			"Turma": "A",
+			"Students": "ANA SOPHIA DE SOUSA SANTANA"
+		},
+		{
+			"AnoCursado": "2",
+			"Turma": "A",
+			"Students": "DAVI LUIZ MONTEIRO DE LIMA"
+		}
+	],
+
+
+
+	[
+		"ESCOLA MUNICIPAL ADOLFO JOSÉ DA SILVA",
+		{
+			"AnoCursado": "1",
+			"Turma": "A",
+			"Students": [
+        "CARLOS GUILHERME DOS SANTOS",
+        "CLESSIA SOFIA RODRIGUES MATOS",
+        "EMILLY CRISTHYNA NASCIMENTO DOS SANTOS"
+      ]
+		},
+		{
+			"AnoCursado": "2",
+			"Turma": "A",
+			"Students": [
+        "ANA CLARA PEREIRA DA COSTA",
+        "ANA SOPHIA DE SOUSA SANTANA",
+        "DAVI LUIZ MONTEIRO DE LIMA"
+      ]
+		}
+	]
 ]
+
