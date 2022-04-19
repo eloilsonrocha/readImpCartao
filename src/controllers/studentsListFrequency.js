@@ -1,6 +1,6 @@
 const readline = require("readline");
 const { Readable } = require("stream");
-const { SSF } = require("xlsx");
+const { XLSX } = require("xlsx");
 
 const studentsListFrequency = async (request, response) => {
 
@@ -34,15 +34,22 @@ const studentsListFrequency = async (request, response) => {
   for (let i = 1; i < schools.length; i += 1) {
     const howManySchools = schools.filter((school) => school.Escola === schools[i].Escola);
 
-    const resultSchools = [
-      schools[i].Escola
-    ];
+    
+    const resultSchools = [{
+     name: schools[i].Escola,
+     classes: []      
+    }];
 
     for (let j = 1; j <= howManySchools.length; j += 1) {
-        resultSchools.push({ AnoCursado: schools[j].AnoCursado, Turma: schools[j].Turma, Students: schools[j].UsuarioNome })
+
+      console.log(howManySchools[j]);
+
+        const students = howManySchools.filter(school => school.AnoCursado === howManySchools[j].AnoCursado && school.Turma === howManySchools[j].Turma)
+
+        resultSchools[0].classes.push({ AnoCursado: howManySchools[j].AnoCursado, Turma: howManySchools[j].Turma, students })
     }
     
-    resultSchools.sort((a, b) => a.AnoCursado > b.AnoCursado ? 1 : a.AnoCursado < b.AnoCursado ? -1 : 0)
+    resultSchools.sort((a, b) => a.AnoCursado > b.AnoCursado ? 1 : a.AnoCursado < b.nomeTurma ? -1 : 0)
 
     resultStudentsFull.push(resultSchools);
   };

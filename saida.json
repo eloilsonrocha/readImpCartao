@@ -55,6 +55,34 @@
         "DAVI LUIZ MONTEIRO DE LIMA"
       ]
 		}
-	]
+	],
+
+  [
+    {
+      "name": "ESCOLA MUNICIPAL ADOLFO JOSÉ DA SILVA",
+      "class": [
+        {
+          "AnoCursado": "1",
+          "Turma": "A",
+          "Students": [
+            "CARLOS GUILHERME DOS SANTOS",
+            "CLESSIA SOFIA RODRIGUES MATOS",
+            "EMILLY CRISTHYNA NASCIMENTO DOS SANTOS"
+          ]
+        },
+        {
+          "AnoCursado": "2",
+          "Turma": "A",
+          "Students": [
+            "ANA CLARA PEREIRA DA COSTA",
+            "ANA SOPHIA DE SOUSA SANTANA",
+            "DAVI LUIZ MONTEIRO DE LIMA"
+          ]
+        }
+      ]
+    },
+    
+  ]
+
 ]
 
