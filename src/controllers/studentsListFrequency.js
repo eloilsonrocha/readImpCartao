@@ -29,7 +29,7 @@ const studentsListFrequency = async (request, response) => {
   }
 
   const resultStudentsFull = []
-  const groupedResultSchools = new Map();
+  // const groupedResultSchools = new Map();
 
   for (let i = 1; i < schools.length; i += 1) {
     const howManySchools = schools.filter((school) => school.Escola === schools[i].Escola);
@@ -54,13 +54,14 @@ const studentsListFrequency = async (request, response) => {
     resultStudentsFull.push(resultSchools);
   };
 
-  resultStudentsFull.forEach((schools) => {
-    if (!groupedResultSchools.has(schools.escola)) {
-      groupedResultSchools.set(schools.escola, schools)
-    }
-  });
+  // resultStudentsFull.forEach((schools) => {
+  //   if (!groupedResultSchools.has(schools.escola)) {
+  //     groupedResultSchools.set(schools.escola, schools)
+  //   }
+  // });
 
-  return response.json([...groupedResultSchools.values()]);
+  // return response.json([...groupedResultSchools.values()]);
+  return response.json(resultStudentsFull);
 
 };
 
