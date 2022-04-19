@@ -1,7 +1,7 @@
 const readline = require("readline");
 const { Readable } = require("stream");
 
-const studentsListFrequency = async (request, response) => {
+const pouchesTags = async (request, response) => {
 
   const { file } = request
   const { buffer } = file
@@ -22,8 +22,6 @@ const studentsListFrequency = async (request, response) => {
     schools.push({
       nameSchool: schoolsLineSplit[0],
       studant: schoolsLineSplit[1],
-      birthDate: schoolsLineSplit[2],
-      userCPFNIS: schoolsLineSplit[3],
       class: schoolsLineSplit[4],
       currentYear: schoolsLineSplit[5],
     })
@@ -46,21 +44,14 @@ const studentsListFrequency = async (request, response) => {
       school.currentYear === filter.currentYear &&
       school.class === filter.class)
 
-    const dataStudants = studants.map((studantOfClass, index) =>
-      [{
-        order: index + 1,
-        nameSchoolStudent: studantOfClass.studant,
-        birthDate: studantOfClass.birthDate,
-        userCPFNIS: studantOfClass.userCPFNIS
-      }]
-    )
+    const dataStudants = studants.map(studantOfClass => studantOfClass.studant)
 
-    const countStudents = dataStudants.length
+
+    const countTests = dataStudants.length
 
     return {
       ...school,
-      classes: dataStudants,
-      countStudents
+      countTests
     }
 
 
@@ -75,4 +66,4 @@ const studentsListFrequency = async (request, response) => {
 
 };
 
-module.exports = studentsListFrequency;
+module.exports = pouchesTags;
