@@ -4,10 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --inspect src/server.js"
+    "dev": "nodemon --inspect src/server.js",
+    "api-shared": "npx localtunnel --port 3000 --subdomain api-shared"
   },
   "dependencies": {
     "@prisma/client": "^3.8.1",
+    "cors": "^2.8.5",
     "express": "^4.17.2",
     "multer": "^1.4.4",
     "xlsx": "^0.18.3"

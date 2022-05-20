@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Etiquetas</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <img class="logo_left"
+        src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_youeduc/logo_amigo_w18utqnmBI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653062765031"
+        alt="logo_esquerda">
+      <img class="logo_center"
+        src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_municipios/logo_russas.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653056943527"
+        alt="logo_centro">
+      <img class="logo_right"
+        src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_youeduc/logo_youeduc.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653057074718"
+        alt="logo_direita">
+    </header>
+    <h1 class="title">AVALIAÇÃO DIAGNÓSTICA 2021.3</h1>
+    <main class="content">
+      <span class="field_name">ESCOLA:</span><span>MUNICIPAL TESTE FUNDAMENTAL</span>
+      <div class="container_field_name_qrcode">
+        <div class="content_field_name_serie_turma_turno">
+          <span class="field_name">SÉRIE:</span><span>7</span>
+          <span class="field_name">TURMA:</span><span>A</span>
+          <span class="field_name">TURNO:</span><span>M</span>
+        </div>
+        <span class="field_name">DISCIPLINA: PORTUGUÊS</span>
+        <span class="field_name">Nº PROVAS: 35</span>
+      </div>
+      <div>
+        <img class="qrcode"
+          src="https://ik.imagekit.io/2bd11h34bw/relatorios/QRCodeFrame_VyQoi-ItN.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653071289985"
+          alt="qrcode">
+      </div>
+      <span class="field_name">ASS DO DIRETOR(A):</span><span>_________________________</span>
+    </main>
+  </div>
+</body>
+<style>
+  root {
+    box-sizing: border-box;
+  }
+
+  .container {
+    width: 340px;
+    height: 227px;
+    background-color: yellow;
+    border: 1px solid red;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo_left {
+    height: 50px;
+    width: 100px;
+  }
+
+  .logo_center {
+    height: 40px;
+    width: 50px;
+  }
+
+  .logo_right {
+    height: 40px;
+    width: 70px;
+  }
+
+  .title {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .content {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .container_field_name_qrcode {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    align-items: space-between;
+  }
+
+  .content_field_name_serie_turma_turno {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .field_name {
+    font-weight: 700;
+  }
+
+  .qrcode {
+    height: 75px;
+    width: 75px;
+  }
+</style>
+
+</html>
