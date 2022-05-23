@@ -2,6 +2,7 @@ const readline = require("readline");
 const { Readable } = require("stream");
 const ejs = require("ejs");
 const path = require("path");
+const pdfGenerator = require('../controllers/pdfGenerator')
 
 const pouchesTags = async (request, response) => {
 
@@ -68,12 +69,14 @@ const pouchesTags = async (request, response) => {
 
   const filePath = path.join(__dirname, "../", "templats", "pouchesTagsTemplat.ejs")
 
-  ejs.renderFile(filePath, {tagData}, (err, html) => {
+  ejs.renderFile(filePath, { tagData }, (err, html) => {
     if (err) {
-      return response.send("Erro na leitura do arquivo")
+      return response.status(500).json({ message: "Erro na leitura do arquivo" })
     }
-    
-    return response.send(html);
+
+    pdfGenerator(html)
+
+    return response.status(200).json('PDF gerado com sucesso')
   })
 
 };
