@@ -1,7 +1,11 @@
 const readline = require("readline");
 const { Readable } = require("stream");
+const ejs = require("ejs");
+const path = require("path");
 
 const pouchesTags = async (request, response) => {
+
+  const { discipline, evaluation } = request.body
 
   const { file } = request
   const { buffer } = file
@@ -38,7 +42,7 @@ const pouchesTags = async (request, response) => {
 
   const uniqueItems = Array.from(new Set(items.map(JSON.stringify))).map(JSON.parse);
 
-  const result = uniqueItems.map(school => {
+  const tagData = uniqueItems.map(school => {
     const studants = schools.filter((filter) =>
       school.nameSchool === filter.nameSchool &&
       school.currentYear === filter.currentYear &&
@@ -51,18 +55,26 @@ const pouchesTags = async (request, response) => {
 
     return {
       ...school,
+      discipline,
+      evaluation,
       countTests
     }
 
-
   });
 
+  // tagData.sort((a, b) => a.class > b.class ? 1 : a.class < b.class ? -1 : 0)
+  // tagData.sort((a, b) => a.currentYear > b.currentYear ? 1 : a.currentYear < b.currentYear ? -1 : 0)
+  // tagData.sort((a, b) => a.nameSchool > b.nameSchool ? 1 : a.nameSchool < b.nameSchool ? -1 : 0)
 
-  result.sort((a, b) => a.class > b.class ? 1 : a.class < b.class ? -1 : 0)
-  result.sort((a, b) => a.currentYear > b.currentYear ? 1 : a.currentYear < b.currentYear ? -1 : 0)
-  result.sort((a, b) => a.nameSchool > b.nameSchool ? 1 : a.nameSchool < b.nameSchool ? -1 : 0)
+  const filePath = path.join(__dirname, "../", "templats", "pouchesTagsTemplat.ejs")
 
-  return response.json(result);
+  ejs.renderFile(filePath, {tagData}, (err, html) => {
+    if (err) {
+      return response.send("Erro na leitura do arquivo")
+    }
+    
+    return response.send(html);
+  })
 
 };
 
