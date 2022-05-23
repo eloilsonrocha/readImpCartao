@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
 
 <head>
@@ -29,7 +30,8 @@
         </h1>
         <main class="content">
           <span class="field_name"><strong>
-            <%= tag.nameSchool %></strong>
+              <%= tag.nameSchool %>
+            </strong>
           </span>
           <div class="container_fields_names_qrcode">
             <div class="content_fields_names_qrcode">
@@ -61,12 +63,10 @@
         </main>
       </div>
     </body>
-
-    <% }); %>
-  <% } %>
-
-  <style>
-          html {
+    <% })%>
+      <% } %>
+        <style>
+          body {
             display: flex;
             box-sizing: border-box;
             font-family: Arial, Helvetica, sans-serif;
@@ -74,22 +74,22 @@
             height: 1120px;
             justify-content: center;
             align-items: center;
-          }
 
-          body {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             padding: 32px 0px 32px 0px;
+            margin-top: 112px;
+            margin-bottom: 112px;
           }
 
           .container {
-            width: 340px;
-            height: 227px;
+            width: 350px;
+            height: 230px;
             border: 1px solid #000;
             margin: 2px;
             box-shadow: 0px 0px 10px #888888;
-
+            border-radius: 2px;
           }
 
           header {
@@ -113,6 +113,7 @@
             height: 40px;
             width: 70px;
             margin-right: 8px;
+            margin-top: 4px;
           }
 
           .title {
@@ -121,7 +122,7 @@
           }
 
           .content {
-            font-size: 12px;
+            font-size: 11px;
             padding: 8px;
           }
 

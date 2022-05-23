@@ -63,9 +63,9 @@ const pouchesTags = async (request, response) => {
 
   });
 
-  // tagData.sort((a, b) => a.class > b.class ? 1 : a.class < b.class ? -1 : 0)
-  // tagData.sort((a, b) => a.currentYear > b.currentYear ? 1 : a.currentYear < b.currentYear ? -1 : 0)
-  // tagData.sort((a, b) => a.nameSchool > b.nameSchool ? 1 : a.nameSchool < b.nameSchool ? -1 : 0)
+  tagData.sort((a, b) => a.class > b.class ? 1 : a.class < b.class ? -1 : 0)
+  tagData.sort((a, b) => a.currentYear > b.currentYear ? 1 : a.currentYear < b.currentYear ? -1 : 0)
+  tagData.sort((a, b) => a.nameSchool > b.nameSchool ? 1 : a.nameSchool < b.nameSchool ? -1 : 0)
 
   const filePath = path.join(__dirname, "../", "templats", "pouchesTagsTemplat.ejs")
 
@@ -74,9 +74,11 @@ const pouchesTags = async (request, response) => {
       return response.status(500).json({ message: "Erro na leitura do arquivo" })
     }
 
-    pdfGenerator(html)
+    // pdfGenerator(html)
 
-    return response.status(200).json('PDF gerado com sucesso')
+    // return response.status(200).json('PDF gerado com sucesso')
+
+    return response.send(html)
   })
 
 };
