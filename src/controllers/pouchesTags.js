@@ -74,13 +74,11 @@ const pouchesTags = async (request, response) => {
       return response.status(500).json({ message: "Erro na leitura do arquivo" })
     }
 
-    // pdfGenerator(html)
-
-    // return response.status(200).json('PDF gerado com sucesso')
-
-    return response.send(html)
+    pdfGenerator(html, "etiquetas")
+    
   })
-
+  
+  return response.json('PDF gerado com sucesso')
 };
 
 module.exports = pouchesTags;
