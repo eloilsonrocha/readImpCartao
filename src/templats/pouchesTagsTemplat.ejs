@@ -9,10 +9,10 @@
   <title>Etiquetas</title>
 </head>
 
-<% if (tagData.length> 0) { %>
-  <% tagData.forEach(tag=> { %>
+<body>
+  <% if (tagData.length> 0) { %>
+    <% tagData.forEach(tag=> { %>
 
-    <body>
       <div class="container">
         <header>
           <img class="logo_left"
@@ -28,7 +28,7 @@
         <h1 class="title">
           <%= tag.evaluation %>
         </h1>
-        <main class="content">
+        <div class="content">
           <span class="field_name"><strong>
               <%= tag.nameSchool %>
             </strong>
@@ -60,112 +60,118 @@
             </aside>
           </div>
           <span class="field_name"><strong>ASS DO DIRETOR(A):</strong><span>____________________________</span>
-        </main>
+        </div>
       </div>
-    </body>
-    <% })%>
-      <% } %>
-        <style>
-          body {
-            display: flex;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-            width: 793px;
-            height: 1120px;
-            justify-content: center;
-            align-items: center;
+      <% })%>
+        <% } %>
+</body>
 
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 32px 0px 32px 0px;
-            margin-top: 112px;
-            margin-bottom: 112px;
-          }
 
-          .container {
-            width: 350px;
-            height: 230px;
-            border: 1px solid #000;
-            margin: 2px;
-            box-shadow: 0px 0px 10px #888888;
-            border-radius: 2px;
-          }
+<style>
+  body {
+    display: flex;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 793px;
+    height: 1120px;
+    justify-content: center;
+    align-items: center;
 
-          header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 32px 0px 32px 0px;
+  }
 
-          .logo_left {
-            height: 50px;
-            width: 100px;
-            margin-right: -16px;
-          }
+  .container {
+    width: 360px;
+    height: 240px;
+    border: 1px solid #000;
+    margin: 2px;
+    box-shadow: 0px 0px 10px #888888;
+    border-radius: 2px;
+  }
 
-          .logo_center {
-            height: 40px;
-            width: 50px;
-          }
+  .container:nth-child(9n),
+  .container:nth-child(10n) {
+    margin-top: 140px;
+    color: yellow;
+  }
 
-          .logo_right {
-            height: 40px;
-            width: 70px;
-            margin-right: 8px;
-            margin-top: 4px;
-          }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-          .title {
-            font-size: 14px;
-            text-align: center;
-          }
+  .logo_left {
+    height: 50px;
+    width: 100px;
+    margin-right: -16px;
+  }
 
-          .content {
-            font-size: 11px;
-            padding: 8px;
-          }
+  .logo_center {
+    height: 40px;
+    width: 50px;
+  }
 
-          .container_fields_names_qrcode {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 0px 8px 0px;
-          }
+  .logo_right {
+    height: 40px;
+    width: 70px;
+    margin-right: 8px;
+    margin-top: 4px;
+  }
 
-          .content_fields_names_qrcode {
-            display: flex;
-            flex-direction: column;
-            width: 200px;
-            align-items: space-between;
-            height: 70px;
+  .title {
+    font-size: 14px;
+    text-align: center;
+  }
 
-          }
+  .content {
+    font-size: 12px;
+    padding: 8px;
+  }
 
-          .content_field_name_serie_turma_turno {
-            display: flex;
-            flex-direction: row;
-          }
+  .container_fields_names_qrcode {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0px 8px 0px;
+  }
 
-          .fields_names_qrcode {
-            display: flex;
-            flex-direction: column;
-            height: 70px;
-            justify-content: space-between;
-          }
+  .content_fields_names_qrcode {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    height: 70px;
 
-          .field_name {
-            margin-right: 4px;
-          }
+  }
 
-          .field_name strong {
-            margin-right: 4px;
-          }
+  .content_field_name_serie_turma_turno {
+    display: flex;
+    flex-direction: row;
+  }
 
-          .qrcode {
-            height: 75px;
-            width: 75px;
-          }
-        </style>
+  .fields_names_qrcode {
+    display: flex;
+    flex-direction: column;
+    height: 70px;
+    justify-content: space-between;
+  }
+
+  .field_name {
+    margin-right: 4px;
+    font-weight: 700;
+  }
+
+  .field_name strong {
+    margin-right: 4px;
+  }
+
+  .qrcode {
+    height: 75px;
+    width: 75px;
+  }
+</style>
 
 </html>

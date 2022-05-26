@@ -8,11 +8,11 @@ const multerConfig = multer();
 
 const router = Router();
 
-const studentsListCard = require("./controllers/studentsListCard");
-const studentsListFrequency = require("./controllers/studentsListFrequency");
-const pouchesTags = require("./controllers/pouchesTags");
-const teachersImport = require("./controllers/teachersImport");
-const descriptors = require("./controllers/descriptors");
+const studentsListCard = require("./controllers/studentsListCardController");
+const studentsListFrequency = require("./controllers/studentsListFrequencyController");
+const pouchesTags = require("./controllers/pouchesTagsController");
+const teachersImport = require("./controllers/teachersImportController");
+const descriptors = require("./controllers/descriptorsController");
 
 router.get("/test", (request, response) => {
   response.json({ message: "Ok api running" });
