@@ -28,7 +28,7 @@ const pouchesTags = async (request, response) => {
       nameSchool: schoolsLineSplit[0],
       studant: schoolsLineSplit[1],
       class: schoolsLineSplit[4],
-      currentYear: schoolsLineSplit[5],
+      currentYear: schoolsLineSplit[5] + 'ª',
     })
   }
 
@@ -50,7 +50,6 @@ const pouchesTags = async (request, response) => {
       school.class === filter.class)
 
     const dataStudants = studants.map(studantOfClass => studantOfClass.studant)
-
 
     const countTests = dataStudants.length
 
