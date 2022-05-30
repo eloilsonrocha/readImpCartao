@@ -25,12 +25,13 @@ const pouchesTags = async (request, response) => {
     const schoolsLineSplit = line.split(";")
 
     schools.push({
-      nameSchool: schoolsLineSplit[0],
+      nameSchool: schoolsLineSplit[0].replace('ESCOLA MUNICIPAL ', ''),
       studant: schoolsLineSplit[1],
       class: schoolsLineSplit[4],
       currentYear: schoolsLineSplit[5] + 'ª',
     })
   }
+
 
   const items = [];
   for (let i = 1; i < schools.length - 1; i += 1) {
@@ -51,7 +52,7 @@ const pouchesTags = async (request, response) => {
 
     const dataStudants = studants.map(studantOfClass => studantOfClass.studant)
 
-    const countTests = dataStudants.length
+    const countTests = String(dataStudants.length).padStart(2, '0')
 
     return {
       ...school,
