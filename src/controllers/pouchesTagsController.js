@@ -66,7 +66,7 @@ const pouchesTags = async (request, response) => {
   tagData.sort((a, b) => a.currentYear > b.currentYear ? 1 : a.currentYear < b.currentYear ? -1 : 0)
   tagData.sort((a, b) => a.nameSchool > b.nameSchool ? 1 : a.nameSchool < b.nameSchool ? -1 : 0)
 
-  const filePath = path.join(__dirname, "../", "templats", "pouchesTagsTemplat.ejs")
+  const filePath = path.join(__dirname, "../", "views", "templats", "pouchesTagsTemplat.ejs")
 
   ejs.renderFile(filePath, { tagData }, async (err, html) => {
     if (err) {
