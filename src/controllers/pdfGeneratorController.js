@@ -10,7 +10,9 @@ const pdfGenerator = async (html, fileName) => {
 
   const destinationFolder = path.join(__dirname, "..", "..", "tmp", `${fileName}.pdf`)
 
-  await fs.promises.unlink(destinationFolder)
+  if (fs.existsSync(destinationFolder)) {
+    await fs.promises.unlink(destinationFolder)
+  }
 
   await page.pdf({ path: destinationFolder, format: 'A4' })
 
