@@ -2,7 +2,8 @@ const readline = require("readline");
 const { Readable } = require("stream");
 const ejs = require("ejs");
 const path = require("path");
-const pdfGenerator = require('../controllers/pdfGeneratorController');
+const generatorPDFPuppeteer = require('../controllers/generatorPDFPuppeteerController');
+const QRCode = require('qrcode')
 
 const pouchesTags = async (request, response) => {
 
@@ -24,34 +25,50 @@ const pouchesTags = async (request, response) => {
   for await (let line of schoolsLine) {
     const schoolsLineSplit = line.split(";")
 
+
+
     schools.push({
-      nameSchool: schoolsLineSplit[0],
+      nameSchool: schoolsLineSplit[0].replace('ESCOLA MUNICIPAL ', ''),
       studant: schoolsLineSplit[1],
       class: schoolsLineSplit[4],
-      currentYear: schoolsLineSplit[5] + 'ª',
+      currentYear: schoolsLineSplit[5] + 'º ANO',
     })
   }
 
   const items = [];
+
   for (let i = 1; i < schools.length - 1; i += 1) {
+
+    const dataURL = `${schools[i].nameSchool} ${schools[i].currentYear} ${schools[i].class}`
+
+    const qrcodeDataURL = await QRCode.toDataURL(dataURL);
+
     items.push({
       nameSchool: schools[i].nameSchool,
       currentYear: schools[i].currentYear,
-      class: schools[i].class
+      class: schools[i].class,
+      qrcodeURL: qrcodeDataURL
     });
+
   };
 
   const uniqueItems = Array.from(new Set(items.map(JSON.stringify))).map(JSON.parse);
 
   const tagData = uniqueItems.map(school => {
-    const studants = schools.filter((filter) =>
+    schools.filter((filter) =>
+      school.nameSchool === filter.nameSchool &&
+      school.currentYear === filter.currentYear &&
+      school.class === filter.class &&
+      school.qrcodeURL === filter.qrcodeURL)
+
+    const ListStudentsTheUniqueByClass = schools.filter((filter) =>
       school.nameSchool === filter.nameSchool &&
       school.currentYear === filter.currentYear &&
       school.class === filter.class)
 
-    const dataStudants = studants.map(studantOfClass => studantOfClass.studant)
+    const ListStudentsByClass = ListStudentsTheUniqueByClass.map(studantOfClass => studantOfClass.studant)
 
-    const countTests = dataStudants.length
+    const countTests = String(ListStudentsByClass.length).padStart(2, '0')
 
     return {
       ...school,
@@ -66,17 +83,18 @@ const pouchesTags = async (request, response) => {
   tagData.sort((a, b) => a.currentYear > b.currentYear ? 1 : a.currentYear < b.currentYear ? -1 : 0)
   tagData.sort((a, b) => a.nameSchool > b.nameSchool ? 1 : a.nameSchool < b.nameSchool ? -1 : 0)
 
-  const filePath = path.join(__dirname, "../", "views", "templats", "pouchesTagsTemplat.ejs")
+  const filePath = path.join(__dirname, "../", "views", "templats", "pouchesTagsTemplat.ejs");
 
   ejs.renderFile(filePath, { tagData }, async (err, html) => {
     if (err) {
       return response.status(500).json({ message: "Erro na leitura do arquivo" })
     }
 
-    await pdfGenerator(html, "etiquetas")
+    // await generatorPDFPuppeteer(html, "etiquetas")
 
-    // return response.send(html)
-    return response.json('PDF gerado com sucesso')
+    return response.send(html)
+    // return response.json('PDF gerado com sucesso')
+    // return response.json(tagData)
 
   })
 };

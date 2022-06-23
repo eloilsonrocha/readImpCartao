@@ -29,7 +29,7 @@
           <%= tag.evaluation %>
         </h1>
         <div class="content">
-          <span class="field_name"><strong>
+          <span class="field_name">ESCOLA:<strong>
               <%= tag.nameSchool %>
             </strong>
           </span>
@@ -43,7 +43,7 @@
                   <span class="field_name"><strong>TURMA:</strong>
                     <%= tag.class %>
                   </span>
-                  <span class="field_name"><strong>TURNO:</strong>VEMROTA</span>
+                  <span class="field_name"><strong>TURNO:</strong>M/T/N</span>
                 </div>
                 <span class="field_name"><strong>DISCIPLINA:</strong>
                   <%= tag.discipline %>
@@ -54,9 +54,7 @@
               </div>
             </div>
             <div>
-              <img class="qrcode"
-                src="https://ik.imagekit.io/2bd11h34bw/relatorios/QRCodeFrame_VyQoi-ItN.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653071289985"
-                alt="qrcode">
+              <img class="qrcode" src="<%= tag.qrcodeURL %>" alt="qrcode">
             </div>
           </div>
           <span class="field_name"><strong>ASS DO DIRETOR(A):</strong><span>____________________________</span>

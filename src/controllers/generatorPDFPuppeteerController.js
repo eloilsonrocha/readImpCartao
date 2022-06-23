@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const path = require("path");
 const fs = require("fs");
 
-const pdfGenerator = async (html, fileName) => {
+const generatorPDFPuppeteer = async (html, fileName) => {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
 
@@ -10,7 +10,9 @@ const pdfGenerator = async (html, fileName) => {
 
   const destinationFolder = path.join(__dirname, "..", "..", "tmp", `${fileName}.pdf`)
 
-  await fs.promises.unlink(destinationFolder)
+  if (fs.existsSync(destinationFolder)) {
+    await fs.promises.unlink(destinationFolder)
+  }
 
   await page.pdf({ path: destinationFolder, format: 'A4' })
 
@@ -18,4 +20,4 @@ const pdfGenerator = async (html, fileName) => {
 
 }
 
-module.exports = pdfGenerator;
+module.exports = generatorPDFPuppeteer;
