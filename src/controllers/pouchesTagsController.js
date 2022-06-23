@@ -90,10 +90,10 @@ const pouchesTags = async (request, response) => {
       return response.status(500).json({ message: "Erro na leitura do arquivo" })
     }
 
-    // await generatorPDFPuppeteer(html, "etiquetas")
+    await generatorPDFPuppeteer(html, "etiquetas")
 
-    return response.send(html)
-    // return response.json('PDF gerado com sucesso')
+    // return response.send(html)
+    return response.status(201).json('PDF gerado com sucesso')
     // return response.json(tagData)
 
   })
