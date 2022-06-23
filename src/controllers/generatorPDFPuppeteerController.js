@@ -2,7 +2,7 @@ const puppeteer = require("puppeteer");
 const path = require("path");
 const fs = require("fs");
 
-const pdfGenerator = async (html, fileName) => {
+const generatorPDFPuppeteer = async (html, fileName) => {
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
 
@@ -20,4 +20,4 @@ const pdfGenerator = async (html, fileName) => {
 
 }
 
-module.exports = pdfGenerator;
+module.exports = generatorPDFPuppeteer;
