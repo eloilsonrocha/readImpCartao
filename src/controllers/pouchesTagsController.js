@@ -32,6 +32,7 @@ const pouchesTags = async (request, response) => {
       studant: schoolsLineSplit[1],
       class: schoolsLineSplit[4],
       currentYear: schoolsLineSplit[5] + 'º ANO',
+      period: schoolsLineSplit[7],
     })
   }
 
@@ -47,6 +48,7 @@ const pouchesTags = async (request, response) => {
       nameSchool: schools[i].nameSchool,
       currentYear: schools[i].currentYear,
       class: schools[i].class,
+      period: schools[i].period,
       qrcodeURL: qrcodeDataURL
     });
 
@@ -90,11 +92,10 @@ const pouchesTags = async (request, response) => {
       return response.status(500).json({ message: "Erro na leitura do arquivo" })
     }
 
-    await generatorPDFPuppeteer(html, "etiquetas")
+    //await generatorPDFPuppeteer(html, "etiquetas")
 
-    // return response.send(html)
-    return response.status(201).json('PDF gerado com sucesso')
-    // return response.json(tagData)
+    return response.send(html)
+    // return response.status(201).json('PDF gerado com sucesso')
 
   })
 };
