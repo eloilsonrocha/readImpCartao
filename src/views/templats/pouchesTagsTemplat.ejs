@@ -18,18 +18,18 @@
           <img class="logo_left"
             src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_youeduc/logo_amigo_w18utqnmBI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653062765031"
             alt="logo_esquerda">
-          <img class="logo_center"
-            src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_municipios/logo_russas.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653056943527"
-            alt="logo_centro">
-          <img class="logo_right"
-            src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_youeduc/logo_youeduc.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653057074718"
+            <img class="logo_center"
+              src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_mascotes/logo_mascote_itaitinga?ik-sdk-version=javascript-1.4.3&updatedAt=1656074266203"
+              alt="logo_centro">
+            <img class="logo_right"
+            src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_municipios/logo_itaitinga.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653056747337"
             alt="logo_direita">
         </div>
         <h1 class="title">
           <%= tag.evaluation %>
         </h1>
         <div class="content">
-          <span class="field_name"><strong>
+          <span class="field_name">ESCOLA:<strong>
               <%= tag.nameSchool %>
             </strong>
           </span>
@@ -43,7 +43,9 @@
                   <span class="field_name"><strong>TURMA:</strong>
                     <%= tag.class %>
                   </span>
-                  <span class="field_name"><strong>TURNO:</strong>VEMROTA</span>
+                  <span class="field_name"><strong>TURNO:</strong>
+                    <%= tag.period %>
+                  </span>
                 </div>
                 <span class="field_name"><strong>DISCIPLINA:</strong>
                   <%= tag.discipline %>
@@ -54,9 +56,7 @@
               </div>
             </div>
             <div>
-              <img class="qrcode"
-                src="https://ik.imagekit.io/2bd11h34bw/relatorios/QRCodeFrame_VyQoi-ItN.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653071289985"
-                alt="qrcode">
+              <img class="qrcode" src="<%= tag.qrcodeURL %>" alt="qrcode">
             </div>
           </div>
           <span class="field_name"><strong>ASS DO DIRETOR(A):</strong><span>____________________________</span>
@@ -310,7 +310,7 @@
 
   .logo_center {
     height: 40px;
-    width: 50px;
+    width: 36px;
   }
 
   .logo_right {
@@ -358,12 +358,12 @@
   }
 
   .field_name {
-    margin-right: 4px;
+    margin-right: 16px;
     font-weight: 700;
   }
 
   .field_name strong {
-    margin-right: 4px;
+    margin-right: 2px;
   }
 
   .qrcode {
