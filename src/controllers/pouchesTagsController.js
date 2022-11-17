@@ -3,11 +3,74 @@ const { Readable } = require("stream");
 const ejs = require("ejs");
 const path = require("path");
 const generatorPDFPuppeteer = require('../controllers/generatorPDFPuppeteerController');
-const QRCode = require('qrcode')
+const QRCode = require('qrcode');
+const moment = require("moment");
+const crypto = require("crypto");
 
 const pouchesTags = async (request, response) => {
 
-  const { discipline, evaluation } = request.body
+  const { discipline, evaluation, client } = request.body
+
+  if(!client) {
+    return response.status(400).json(
+      { message: 'Tu tem cara que não come nem a janta toda, já o client é obrigatório', example: 
+        [
+          'AQUIRAZ', 
+          'GUARAMIRANGA', 
+          'HORIZONTE', 
+          'ITAITINGA', 
+          'MULUNGU', 
+          'OEIRAS', 
+          'RUSSAS', 
+          'SÃO PEDRO', 
+          'SERRA DO MEL', 
+          'VALPARAÍSO'
+        ]
+      })
+  }
+
+  if(!discipline || !evaluation) {
+    return response.status(400).json({ message: 'Calma má.. só vim avisar! O nome da disciplina e o nome da avaliação são obrigatórios'})
+  }
+
+  let templatName = ""
+
+  let clientUpperCase = client.toUpperCase()
+
+  switch (clientUpperCase) {
+    case "AQUIRAZ":
+      templatName = "templatAquiraz.ejs"
+      break;
+    case "GUARAMIRANGA":
+      templatName = "templatGuaramiranga.ejs"
+      break;
+    case "HORIZONTE":
+      templatName = "templatHorizonte.ejs"
+      break;
+    case "ITAITINGA":
+      templatName = "templatItaitinga.ejs"
+      break;
+    case "MULUNGU":
+      templatName = "templatMulungu.ejs"
+      break;
+    case "OEIRAS":
+      templatName = "templatOeiras.ejs"
+      break;
+    case "RUSSAS":
+      templatName = "templatRussas.ejs"
+      break;
+    case "SÃO PEDRO":
+      templatName = "templatSaoPedro.ejs"
+      break;
+    case "SERRA DO MEL":
+      templatName = "templatSerraDoMel.ejs"
+      break;
+    case "VALPARAÍSO":
+      templatName = "templatValpariso.ejs"
+      break;
+    default:
+      return response.status(400).json({ message: 'Fresquim né?!, cliente inexistente ou nome digitado errado'})
+  }
 
   const { file } = request
   const { buffer } = file
@@ -24,8 +87,6 @@ const pouchesTags = async (request, response) => {
 
   for await (let line of schoolsLine) {
     const schoolsLineSplit = line.split(";")
-
-
 
     schools.push({
       nameSchool: schoolsLineSplit[0].replace('ESCOLA MUNICIPAL ', ''),
@@ -85,17 +146,23 @@ const pouchesTags = async (request, response) => {
   tagData.sort((a, b) => a.currentYear > b.currentYear ? 1 : a.currentYear < b.currentYear ? -1 : 0)
   tagData.sort((a, b) => a.nameSchool > b.nameSchool ? 1 : a.nameSchool < b.nameSchool ? -1 : 0)
 
-  const filePath = path.join(__dirname, "../", "views", "templats", "pouchesTagsTemplat.ejs");
+  const filePathTemplat = path.join(__dirname, "../", "views", "templats", templatName);
 
-  ejs.renderFile(filePath, { tagData }, async (err, html) => {
+  ejs.renderFile(filePathTemplat, { tagData }, async (err, html) => {
     if (err) {
       return response.status(500).json({ message: "Erro na leitura do arquivo" })
     }
 
-    await generatorPDFPuppeteer(html, "etiquetas")
+    const clientNameForFile = clientUpperCase.toLowerCase().replace(/\s/g, '_');
+    const currentDateForFileName = moment(Date.now()).format('YYYYMMDD');
+    const fileHash = crypto.randomBytes(6).toString('hex').toUpperCase();
 
+    const fileName = `etiquetas_${clientNameForFile}_${currentDateForFileName}${fileHash}.pdf`
+
+    await generatorPDFPuppeteer(html, fileName)
+
+    return response.status(201).json('Uaaau... estou estupefato, PDF gerado com sucesso')
     // return response.send(html)
-    return response.status(201).json('PDF gerado com sucesso')
 
   })
 };

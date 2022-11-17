@@ -8,11 +8,7 @@ const generatorPDFPuppeteer = async (html, fileName) => {
 
   await page.setContent(html)
 
-  const destinationFolder = path.join(__dirname, "..", "..", "tmp", `${fileName}.pdf`)
-
-  if (fs.existsSync(destinationFolder)) {
-    await fs.promises.unlink(destinationFolder)
-  }
+  const destinationFolder = path.join(__dirname, "..", "..", "tmp", `${fileName}`)
 
   await page.pdf({ path: destinationFolder, format: 'A4' })
 
