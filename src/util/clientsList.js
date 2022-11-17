@@ -1,4 +1,4 @@
-clients = [
+const clients = [
   'AQUIRAZ', 
   'GUARAMIRANGA', 
   'HORIZONTE', 

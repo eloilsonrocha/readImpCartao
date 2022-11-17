@@ -1,6 +1,9 @@
-const selectTemplate = (clientUpperCase ) => {
+const clients = require("./clientsList");
+
+const selectTemplate = (response, client ) => {
 
   let templatName = ""
+  let clientUpperCase = client.toUpperCase();
 
     switch (clientUpperCase) {
     case "AQUIRAZ":
@@ -34,7 +37,7 @@ const selectTemplate = (clientUpperCase ) => {
       templatName = "templatValpariso.ejs"
       break;
     default:
-      return { message: 'Fresquim né?!, cliente inexistente ou nome digitado errado', example: clients }
+      return response.status(400).json({ message: 'Fresquim né?!, cliente inexistente ou nome digitado errado', example: clients })
   }
 
   return templatName;

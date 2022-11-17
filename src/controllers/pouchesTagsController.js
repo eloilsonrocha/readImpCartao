@@ -7,6 +7,7 @@ const clients = require('../util/clientsList')
 const QRCode = require('qrcode');
 const moment = require("moment");
 const crypto = require("crypto");
+const selectTemplate = require("../util/selectTemplate");
 
 const pouchesTags = async (request, response) => {
 
@@ -21,44 +22,7 @@ const pouchesTags = async (request, response) => {
     return response.status(400).json({ message: 'Calma má.. só vim avisar! O nome da disciplina e o nome da avaliação são obrigatórios'})
   }
 
-  let templatName = ""
-
-  let clientUpperCase = client.toUpperCase()
-
-  switch (clientUpperCase) {
-    case "AQUIRAZ":
-      templatName = "templatAquiraz.ejs"
-      break;
-    case "GUARAMIRANGA":
-      templatName = "templatGuaramiranga.ejs"
-      break;
-    case "HORIZONTE":
-      templatName = "templatHorizonte.ejs"
-      break;
-    case "ITAITINGA":
-      templatName = "templatItaitinga.ejs"
-      break;
-    case "MULUNGU":
-      templatName = "templatMulungu.ejs"
-      break;
-    case "OEIRAS":
-      templatName = "templatOeiras.ejs"
-      break;
-    case "RUSSAS":
-      templatName = "templatRussas.ejs"
-      break;
-    case "SÃO PEDRO":
-      templatName = "templatSaoPedro.ejs"
-      break;
-    case "SERRA DO MEL":
-      templatName = "templatSerraDoMel.ejs"
-      break;
-    case "VALPARAÍSO":
-      templatName = "templatValpariso.ejs"
-      break;
-    default:
-      return response.status(400).json({ message: 'Fresquim né?!, cliente inexistente ou nome digitado errado', example: clients })
-  }
+  const templatName = selectTemplate(response, client);
 
   const { file } = request
   const { buffer } = file
@@ -141,7 +105,7 @@ const pouchesTags = async (request, response) => {
       return response.status(500).json({ message: "Erro na leitura do arquivo" })
     }
 
-    const clientNameForFile = clientUpperCase.toLowerCase().replace(/\s/g, '_');
+    const clientNameForFile = client.toLowerCase().replace(/\s/g, '_');
     const currentDateForFileName = moment(Date.now()).format('YYYYMMDD');
     const fileHash = crypto.randomBytes(6).toString('hex').toUpperCase();
 
