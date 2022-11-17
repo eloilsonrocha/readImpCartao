@@ -3,10 +3,20 @@ const path = require("path");
 const fs = require("fs");
 
 const generatorPDFPuppeteer = async (html, fileName) => {
-  const browser = await puppeteer.launch()
-  const page = await browser.newPage()
+  let browser;
+  let page;
 
-  await page.setContent(html)
+  try {
+    browser = await puppeteer.launch({headless: true, args:['--no-sandbox']});
+    page = await browser.newPage();
+  }
+  catch(e) {
+    const error = "Erro ao gerar relatorio: " + e.stack;
+    console.log(error);
+    throw new Error(error);
+  }
+
+  await page.setContent(html);
 
   const destinationFolder = path.join(__dirname, "..", "..", "tmp", `${fileName}`)
 

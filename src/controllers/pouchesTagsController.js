@@ -3,6 +3,7 @@ const { Readable } = require("stream");
 const ejs = require("ejs");
 const path = require("path");
 const generatorPDFPuppeteer = require('../controllers/generatorPDFPuppeteerController');
+const clients = require('../util/clientsList')
 const QRCode = require('qrcode');
 const moment = require("moment");
 const crypto = require("crypto");
@@ -13,20 +14,7 @@ const pouchesTags = async (request, response) => {
 
   if(!client) {
     return response.status(400).json(
-      { message: 'Tu tem cara que não come nem a janta toda, já o client é obrigatório', example: 
-        [
-          'AQUIRAZ', 
-          'GUARAMIRANGA', 
-          'HORIZONTE', 
-          'ITAITINGA', 
-          'MULUNGU', 
-          'OEIRAS', 
-          'RUSSAS', 
-          'SÃO PEDRO', 
-          'SERRA DO MEL', 
-          'VALPARAÍSO'
-        ]
-      })
+      { message: 'Tu tem cara que não come nem a janta toda, já o client é obrigatório', example: clients})
   }
 
   if(!discipline || !evaluation) {
@@ -69,7 +57,7 @@ const pouchesTags = async (request, response) => {
       templatName = "templatValpariso.ejs"
       break;
     default:
-      return response.status(400).json({ message: 'Fresquim né?!, cliente inexistente ou nome digitado errado'})
+      return response.status(400).json({ message: 'Fresquim né?!, cliente inexistente ou nome digitado errado', example: clients })
   }
 
   const { file } = request
