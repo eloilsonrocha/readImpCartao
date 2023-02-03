@@ -11,22 +11,30 @@ const selectTemplate = require("../util/selectTemplate");
 
 const pouchesTags = async (request, response) => {
 
-  const { discipline, evaluation, client } = request.body
+  const { discipline, evaluation, client } = request.body  
+  const { file } = request
+
+  if(!file) {
+    return response.status(400).json(
+      { message: 'O arquivo com a lista de alunos é obrigatório'})
+  }
+  
+  if(!discipline) {
+    return response.status(400).json({ message: 'O nome da disciplina é obrigatório'})
+  }
+
+  if(!evaluation) {
+    return response.status(400).json({ message: 'O nome da avaliação é obrigatório'})
+  }
 
   if(!client) {
     return response.status(400).json(
-      { message: 'Tu tem cara que não come nem a janta toda, já o client é obrigatório', example: clients})
-  }
-
-  if(!discipline || !evaluation) {
-    return response.status(400).json({ message: 'Calma má.. só vim avisar! O nome da disciplina e o nome da avaliação são obrigatórios'})
+      { message: 'O client é obrigatório', example: clients})
   }
 
   const templatName = selectTemplate(response, client);
 
-  const { file } = request
   const { buffer } = file
-
   const readableFile = new Readable();
   readableFile.push(buffer.toString("latin1"));
   readableFile.push(null)
@@ -113,9 +121,8 @@ const pouchesTags = async (request, response) => {
 
     await generatorPDFPuppeteer(html, fileName)
 
-    return response.status(201).json('Uaaau... estou estupefato, PDF gerado com sucesso')
-    // return response.send(html)
-
+    return response.status(201).json(`PDF gerado com sucesso`)
+    return response.send(html)
   })
 };
 

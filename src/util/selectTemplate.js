@@ -34,10 +34,13 @@ const selectTemplate = (response, client ) => {
       templatName = "templatSerraDoMel.ejs"
       break;
     case "VALPARAÍSO":
-      templatName = "templatValpariso.ejs"
+      templatName = "templatValparaiso.ejs"
+      break;
+    case "CIDADE OCIDENTAL":
+      templatName = "templatCidadeOcidental.ejs"
       break;
     default:
-      return response.status(400).json({ message: 'Fresquim né?!, cliente inexistente ou nome digitado errado', example: clients })
+      return response.status(400).json({ message: 'Cliente inexistente ou nome digitado errado', example: clients })
   }
 
   return templatName;

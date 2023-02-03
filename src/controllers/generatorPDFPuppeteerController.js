@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 const path = require("path");
-const fs = require("fs");
+const fs = require('fs');
 
 const generatorPDFPuppeteer = async (html, fileName) => {
   let browser;
@@ -18,12 +18,11 @@ const generatorPDFPuppeteer = async (html, fileName) => {
 
   await page.setContent(html);
 
-  const destinationFolder = path.join(__dirname, "..", "..", "tmp", `${fileName}`)
+  const destinationFolder = path.resolve("tmp", `${fileName}`)
 
   await page.pdf({ path: destinationFolder, format: 'A4' })
 
-  await browser.close()
-
+  await browser.close() 
 }
 
 module.exports = generatorPDFPuppeteer;
