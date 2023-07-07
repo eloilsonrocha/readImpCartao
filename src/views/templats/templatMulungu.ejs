@@ -50,7 +50,11 @@
                 <span class="field_name"><strong>DISCIPLINA:</strong>
                   <%= tag.discipline %>
                 </span>
-                <span class="field_name"><strong>Nº PROVAS POR DISCIPLINA:</strong>
+                <span 
+                  class="field_name" 
+                  style="<%= tag.printNumberOfTests === 1 ? 'visibility: visible;' : 'visibility: hidden;' %>"
+                  >
+                  <strong>Nº PROVAS POR DISCIPLINA:</strong>
                   <%= tag.countTests %>
                 </span>
               </div>
@@ -73,7 +77,7 @@
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
     width: 793px;
-    height: 1120px;
+    /* height: 1120px; */
     justify-content: center;
     align-items: center;
 
@@ -87,8 +91,6 @@
     width: 360px;
     height: 240px;
     border: 1px solid #000;
-    margin: 2px;
-    box-shadow: 0px 0px 10px #888888;
     border-radius: 2px;
   }
 
@@ -292,7 +294,7 @@
   .container:nth-child(794),
   .container:nth-child(801),
   .container:nth-child(802) {
-    margin-top: 151px;
+    margin-top: 165px;
   }
 
 
