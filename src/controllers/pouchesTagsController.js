@@ -11,16 +11,20 @@ const selectTemplate = require("../util/selectTemplate");
 
 const pouchesTags = async (request, response) => {
 
-  const { discipline, evaluation, client } = request.body  
+  const { discipline, evaluation, client, printTestNumber } = request.body  
   const { file } = request
 
   if(!file) {
     return response.status(400).json(
       { message: 'O arquivo com a lista de alunos é obrigatório'})
   }
-  
+    
   if(!discipline) {
     return response.status(400).json({ message: 'O nome da disciplina é obrigatório'})
+  }
+
+  if(!printTestNumber) {
+    return response.status(400).json({ message: 'O printTestNumber é obrigatório, digite sim ou não como valor'})
   }
 
   if(!evaluation) {
@@ -33,6 +37,8 @@ const pouchesTags = async (request, response) => {
   }
 
   const templatName = selectTemplate(response, client);
+
+  const printNumberOfTests = printTestNumber.toLocaleUpperCase() === 'SIM' ? 1 : 0
 
   const { buffer } = file
   const readableFile = new Readable();
@@ -52,7 +58,7 @@ const pouchesTags = async (request, response) => {
       nameSchool: schoolsLineSplit[0].replace('ESCOLA MUNICIPAL ', ''),
       studant: schoolsLineSplit[1],
       class: schoolsLineSplit[4],
-      currentYear: schoolsLineSplit[5] + 'º ANO',
+      currentYear: schoolsLineSplit[5].toLocaleUpperCase().includes('EJA') ? schoolsLineSplit[5] : schoolsLineSplit[5] + 'º ANO',
       period: schoolsLineSplit[7],
     })
   }
@@ -97,7 +103,8 @@ const pouchesTags = async (request, response) => {
       ...school,
       discipline,
       evaluation,
-      countTests
+      countTests,
+      printNumberOfTests
     }
 
   });
@@ -122,7 +129,7 @@ const pouchesTags = async (request, response) => {
     await generatorPDFPuppeteer(html, fileName)
 
     return response.status(201).json(`PDF gerado com sucesso`)
-    return response.send(html)
+    // return response.send(html)
   })
 };
 
