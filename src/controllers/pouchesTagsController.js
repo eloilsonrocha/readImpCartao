@@ -67,7 +67,7 @@ const pouchesTags = async (request, response) => {
     const schoolsLineSplit = line.split(";");
 
     schools.push({
-      nameSchool: schoolsLineSplit[0].replace("ESCOLA MUNICIPAL ", ""),
+      nameSchool: schoolsLineSplit[0].replace("ESCOLA MUNICIPAL ", "").replace("PROFESSORA ", "PROFª ").replace("PROFESSOR ", "PROF "),
       studant: schoolsLineSplit[1],
       class: schoolsLineSplit[4],
       currentYear: schoolsLineSplit[5].toLocaleUpperCase().includes("EJA")
@@ -152,17 +152,22 @@ const pouchesTags = async (request, response) => {
     }
 
     const clientNameForFile = client.toLowerCase().replace(/\s/g, "_");
+
+    const clientNameForFileNotAccents = clientNameForFile.normalize('NFD').replace(/[\u0300-\u036f]/g, "")
+
     const currentDateForFileName = moment(Date.now()).format("YYYYMMDD");
     const fileHash = crypto.randomBytes(6).toString("hex").toUpperCase();
 
-    const fileName = `etiquetas_${clientNameForFile}_${currentDateForFileName}${fileHash}.pdf`;
+    const fileName = `etiquetas_${clientNameForFileNotAccents}_${currentDateForFileName}${fileHash}.pdf`;
 
-    const fileSaveLocation = await generatorPDFPuppeteer(html, fileName);
+    await generatorPDFPuppeteer(html, fileName);
+
+    const fileUrl = `${process.env.APP_URL}${process.env.PORT}/tags/${fileName}`
     
     return response
       .status(201)
       .json(
-        `O arquivo: ${fileName}, foi gerado com sucesso em: ${fileSaveLocation}`
+        `Clique no link para abrir o arquivo: ${fileUrl}`
       );
     // return response.send(html)
   });

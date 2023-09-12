@@ -18,13 +18,11 @@ const generatorPDFPuppeteer = async (html, fileName) => {
 
   await page.setContent(html);
 
-  const destinationFolder = path.resolve("tmp", `${fileName}`)
+  const destinationFolder = path.resolve("public", `${fileName}`)
 
   await page.pdf({ path: destinationFolder, format: 'A4' })
 
   await browser.close() 
-
-  return destinationFolder;
 }
 
 module.exports = generatorPDFPuppeteer;
