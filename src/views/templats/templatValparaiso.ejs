@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Etiquetas</title>
+</head>
+
+<body>
+  <% if (tagData.length> 0) { %>
+    <% tagData.forEach(tag=> { %>
+
+      <div class="container">
+        <div class="logos">
+          <img class="logo_left"
+            src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_youeduc/logo_amigo_w18utqnmBI.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653062765031"
+            alt="logo_esquerda">
+          <img class="logo_center"
+            src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_municipios/logo_valparaiso_Fhhz_szD7.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653062854732"
+            alt="logo_centro">
+          <img class="logo_right"
+            src="https://ik.imagekit.io/2bd11h34bw/relatorios/logos_youeduc/logo_youeduc.png?ik-sdk-version=javascript-1.4.3&updatedAt=1653057074718"
+            alt="logo_direita">
+        </div>
+        <h1 class="title">
+          <%= tag.evaluation %>
+        </h1>
+        <div class="content">
+          <span class="field_name">ESCOLA:<strong>
+              <%= tag.nameSchool %>
+            </strong>
+          </span>
+          <div class="container_fields_names_qrcode">
+            <div class="content_fields_names_qrcode">
+              <div class="fields_names_qrcode">
+                <div class="content_field_name_serie_turma_turno">
+                  <span class="field_name"><strong>SÉRIE:</strong>
+                    <%= tag.currentYear %>
+                  </span>
+                  <span class="field_name"><strong>TURMA:</strong>
+                    <%= tag.class %>
+                  </span>
+                  <!-- <span class="field_name"><strong>TURNO:</strong>
+                    <%= tag.period %>
+                  </span> -->
+                </div>
+                <span class="field_name"><strong>DISCIPLINA:</strong>
+                  <%= tag.discipline %>
+                </span>
+                <span 
+                  class="field_name" 
+                  style="<%= tag.printNumberOfTests === 1 ? 'visibility: visible;' : 'visibility: hidden;' %>"
+                  >
+                  <strong>Nº PROVAS POR DISCIPLINA:</strong>
+                  <%= tag.countTests %>
+                </span>
+              </div>
+            </div>
+            <!-- <div>
+              <img class="qrcode" src="<%= tag.qrcodeURL %>" alt="qrcode">
+            </div> -->
+          </div>
+          <span class="field_name"><strong>ASS DO DIRETOR(A):</strong><span>__________________________</span>
+         </div>
+      </div>
+      <% })%>
+        <% } %>
+</body>
+
+
+<style>
+  body {
+    display: flex;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 793px;
+    height: 1120px;
+    justify-content: center;
+    align-items: center;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 32px 0px 32px 0px;
+  }
+
+  .container {
+    width: 360px;
+    height: 210px;
+    border: 1px solid #000;
+    padding: 0px 4px 0px 4px ; 
+    border-radius: 2px;
+  }
+
+.container:nth-child(11),
+.container:nth-child(12),
+.container:nth-child(21),
+.container:nth-child(22),
+.container:nth-child(31),
+.container:nth-child(32),
+.container:nth-child(41),
+.container:nth-child(42),
+.container:nth-child(51),
+.container:nth-child(52),
+.container:nth-child(61),
+.container:nth-child(62),
+.container:nth-child(71),
+.container:nth-child(72),
+.container:nth-child(81),
+.container:nth-child(82),
+.container:nth-child(91),
+.container:nth-child(92),
+.container:nth-child(101),
+.container:nth-child(102),
+.container:nth-child(111),
+.container:nth-child(112),
+.container:nth-child(121),
+.container:nth-child(122),
+.container:nth-child(131),
+.container:nth-child(132),
+.container:nth-child(141),
+.container:nth-child(142),
+.container:nth-child(151),
+.container:nth-child(152),
+.container:nth-child(161),
+.container:nth-child(162),
+.container:nth-child(171),
+.container:nth-child(172),
+.container:nth-child(181),
+.container:nth-child(182),
+.container:nth-child(191),
+.container:nth-child(192),
+.container:nth-child(201),
+.container:nth-child(202),
+.container:nth-child(211),
+.container:nth-child(212),
+.container:nth-child(221),
+.container:nth-child(222),
+.container:nth-child(231),
+.container:nth-child(232),
+.container:nth-child(241),
+.container:nth-child(242),
+.container:nth-child(251),
+.container:nth-child(252),
+.container:nth-child(261),
+.container:nth-child(262),
+.container:nth-child(271),
+.container:nth-child(272),
+.container:nth-child(281),
+.container:nth-child(282),
+.container:nth-child(291),
+.container:nth-child(292),
+.container:nth-child(301),
+.container:nth-child(302),
+.container:nth-child(311),
+.container:nth-child(312),
+.container:nth-child(321),
+.container:nth-child(322),
+.container:nth-child(331),
+.container:nth-child(332),
+.container:nth-child(341),
+.container:nth-child(342),
+.container:nth-child(351),
+.container:nth-child(352),
+.container:nth-child(361),
+.container:nth-child(362),
+.container:nth-child(371),
+.container:nth-child(372),
+.container:nth-child(381),
+.container:nth-child(382),
+.container:nth-child(391),
+.container:nth-child(392),
+.container:nth-child(401),
+.container:nth-child(402),
+.container:nth-child(411),
+.container:nth-child(412),
+.container:nth-child(421),
+.container:nth-child(422),
+.container:nth-child(431),
+.container:nth-child(432),
+.container:nth-child(441),
+.container:nth-child(442),
+.container:nth-child(451),
+.container:nth-child(452),
+.container:nth-child(461),
+.container:nth-child(462),
+.container:nth-child(471),
+.container:nth-child(472),
+.container:nth-child(481),
+.container:nth-child(482),
+.container:nth-child(491),
+.container:nth-child(492),
+.container:nth-child(501),
+.container:nth-child(502),
+.container:nth-child(511),
+.container:nth-child(512),
+.container:nth-child(521),
+.container:nth-child(522),
+.container:nth-child(531),
+.container:nth-child(532),
+.container:nth-child(541),
+.container:nth-child(542),
+.container:nth-child(551),
+.container:nth-child(552),
+.container:nth-child(561),
+.container:nth-child(562),
+.container:nth-child(571),
+.container:nth-child(572),
+.container:nth-child(581),
+.container:nth-child(582),
+.container:nth-child(591),
+.container:nth-child(592),
+.container:nth-child(601),
+.container:nth-child(602),
+.container:nth-child(611),
+.container:nth-child(612),
+.container:nth-child(621),
+.container:nth-child(622),
+.container:nth-child(631),
+.container:nth-child(632),
+.container:nth-child(641),
+.container:nth-child(642),
+.container:nth-child(651),
+.container:nth-child(652),
+.container:nth-child(661),
+.container:nth-child(662),
+.container:nth-child(671),
+.container:nth-child(672),
+.container:nth-child(681),
+.container:nth-child(682),
+.container:nth-child(691),
+.container:nth-child(692),
+.container:nth-child(701),
+.container:nth-child(702),
+.container:nth-child(711),
+.container:nth-child(712),
+.container:nth-child(721),
+.container:nth-child(722),
+.container:nth-child(731),
+.container:nth-child(732),
+.container:nth-child(741),
+.container:nth-child(742),
+.container:nth-child(751),
+.container:nth-child(752),
+.container:nth-child(761),
+.container:nth-child(762),
+.container:nth-child(771),
+.container:nth-child(772),
+.container:nth-child(781),
+.container:nth-child(782),
+.container:nth-child(791),
+.container:nth-child(792),
+.container:nth-child(801),
+.container:nth-child(802),
+.container:nth-child(811),
+.container:nth-child(812),
+.container:nth-child(821),
+.container:nth-child(822),
+.container:nth-child(831),
+.container:nth-child(832),
+.container:nth-child(841),
+.container:nth-child(842),
+.container:nth-child(851),
+.container:nth-child(852),
+.container:nth-child(861),
+.container:nth-child(862),
+.container:nth-child(871),
+.container:nth-child(872),
+.container:nth-child(881),
+.container:nth-child(882),
+.container:nth-child(891),
+.container:nth-child(892),
+.container:nth-child(901),
+.container:nth-child(902),
+.container:nth-child(911),
+.container:nth-child(912),
+.container:nth-child(921),
+.container:nth-child(922),
+.container:nth-child(931),
+.container:nth-child(932),
+.container:nth-child(941),
+.container:nth-child(942),
+.container:nth-child(951),
+.container:nth-child(952),
+.container:nth-child(961),
+.container:nth-child(962),
+.container:nth-child(971),
+.container:nth-child(972),
+.container:nth-child(981),
+.container:nth-child(982),
+.container:nth-child(991),
+.container:nth-child(992),
+.container:nth-child(1001),
+.container:nth-child(1002){
+    margin-top: 73px;
+  }
+
+
+  .logos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo_left {
+    height: 50px;
+    width: 100px;
+    margin-right: -16px;
+  }
+  .container_logo_center{
+    padding: 8px 0px 0px 0px;
+  }
+  
+  .logo_center {
+    height: 50px;
+    width: 120px;
+  }
+
+  .logo_right {
+    height: 40px;
+    width: 64px;
+    margin-right: 8px;
+    margin-top: 2px;
+  }
+
+  .title {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .content {
+    font-size: 12px;
+    padding: 0px 8px 0px 8px;
+  }
+
+  .container_fields_names_qrcode {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0px 8px 0px;
+  }
+
+  .content_fields_names_qrcode {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    height: 70px;
+
+  }
+
+  .content_field_name_serie_turma_turno {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .fields_names_qrcode {
+    display: flex;
+    flex-direction: column;
+    height: 70px;
+    justify-content: space-between;
+  }
+
+  .field_name {
+    margin-right: 16px;
+    font-weight: 700;
+  }
+
+  .field_name strong {
+    margin-right: 2px;
+  }
+
+  .qrcode {
+    height: 65px;
+    width: 65px;
+  }
+</style>
+
+</html>
