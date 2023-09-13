@@ -38,6 +38,16 @@
 - client
 - printTestNumber (sim ou não)
 
+### Projeto já estando clonado:
+
+```bash
+
+  # Para atualizar e baixar a ultima versão do projeto
+
+  $ git pull
+```
+
+
 ### Como resolver possíveis problemas
 
 ### Windows
