@@ -1,27 +1,33 @@
 # Gerador de Etiquetas - Malotes.
 
-### Como Iniciar
+# Acesse esse link para visualizar as instruções formatadas: https://github.com/eloilsondosanjos/readimp-cartao
 
-- 1 - Descompact o arquivo readimp-cartao-develop.zip
-- 2 - Entre na pasta readimp-cartao-develop
-- 3 - Click com o botão direito em um local vazio da pasta e vai em Git Bash Here
+## 📦 Como Baixar e Executar o Projeto
+- 1 - Abre o terminal na pasta que deseja salvar os arquivos do projeto
 
-- 4 - Instale as dependências com o comando:
+```bash
 
-  ```bash 
-  npm install
-  ```
+  # Para clonar o repositório para sua maquina
 
-- 5 - Encontro o arquivo `.env.example`, faça uma cópia e renomei para `.env`
+  $ git clone https://github.com/eloilsondosanjos/readimp-cartao.git
 
-- 6 - Inicie o servidor com o comando:
+  # Para entrar na pasta do projeto
+  $ cd readimp-cartao
+
+  # Para instalar todas as dependências do projeto
+  $ npm install
+
+```
+- 2 - Encontro o arquivo `.env.example`, faça uma cópia e renomei para `.env`
+
+- 3 - Inicie o servidor com o comando:
 
   ```bash 
   npm run dev
   ```
 
-- 7 - Abra o Insomnia 
-  - Importe o aquivo com as lista de requisições
+- 4 - Abra o Insomnia 
+  - Importe o aquivo com as lista de requisições em: docs/Insomnia_XXXX-XX-XX.json 
   - Selecione a requisição: Upload Pouches HangTags
 
 ### Parâmetro obrigatórios:
