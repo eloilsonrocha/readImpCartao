@@ -23,7 +23,7 @@ const descriptors = async (request, response) => {
 
     descriptors.push({
       IdDescritor: descriptorLineSplit[0],
-      CodigoDescritor: descriptorLineSplit[1],
+      CodigoDescritor: descriptorLineSplit[1].trim().replace(' ', '').replace('.', '').replace('-', ''),
       DescricaoDescritor: descriptorLineSplit[2].trim(),
       AnoCursado: descriptorLineSplit[3],
       DataInclusao: descriptorLineSplit[4],
@@ -31,7 +31,6 @@ const descriptors = async (request, response) => {
       EmUso: descriptorLineSplit[6]
     });
   }
-
 
   const descriptorsFull = [];
   const groupedResultDescriptors = new Map();
@@ -41,6 +40,8 @@ const descriptors = async (request, response) => {
       descriptor) => descriptor.DescricaoDescritor === descriptors[i].DescricaoDescritor &&
       descriptor.AnoCursado === descriptors[i].AnoCursado
     );
+
+    // Ano cursado e código descritor
 
     const resultDescriptors = {
       DescricaoDescritor: descriptors[i].DescricaoDescritor,
