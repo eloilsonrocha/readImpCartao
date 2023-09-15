@@ -9,7 +9,7 @@ const descriptors = async (request, response) => {
   const { buffer } = file;
 
   const readableFile = new Readable();
-  readableFile.push(buffer.toString("utf8"));
+  readableFile.push(buffer.toString("latin1"));
   readableFile.push(null);
 
   const descriptorLine = readline.createInterface({
@@ -19,16 +19,20 @@ const descriptors = async (request, response) => {
   const descriptors = [];
 
   for await (let line of descriptorLine) {
-    const descriptorLineSplit = line.split(";");
+    const descriptorLineSplit = line.split(",");
 
     descriptors.push({
       IdDescritor: descriptorLineSplit[0],
-      CodigoDescritor: descriptorLineSplit[1].trim().replace(' ', '').replace('.', '').replace('-', ''),
+      CodigoDescritor: descriptorLineSplit[1].replace(' ', '').replace('.', '').replace('-', '').trim(),
       DescricaoDescritor: descriptorLineSplit[2].trim(),
-      AnoCursado: descriptorLineSplit[3],
-      DataInclusao: descriptorLineSplit[4],
-      Ativo: descriptorLineSplit[5],
-      EmUso: descriptorLineSplit[6]
+      IdHabilidade: descriptorLineSplit[3], 
+      DescricaoHabilidade: descriptorLineSplit[4],
+      IdCompetencia: descriptorLineSplit[5],
+      DescricaoCompetencia: descriptorLineSplit[6],
+      AnoCursado: descriptorLineSplit[7],
+      DataInclusao: descriptorLineSplit[8],
+      Ativo: descriptorLineSplit[9],
+      EmUso: descriptorLineSplit[10]
     });
   }
 
@@ -37,11 +41,12 @@ const descriptors = async (request, response) => {
 
   for (let i = 1; i < descriptors.length; i += 1) {
     const howManyDescriptor = descriptors.filter((
-      descriptor) => descriptor.DescricaoDescritor === descriptors[i].DescricaoDescritor &&
-      descriptor.AnoCursado === descriptors[i].AnoCursado
+      descriptor) => (descriptor.DescricaoDescritor === descriptors[i].DescricaoDescritor &&
+      descriptor.AnoCursado === descriptors[i].AnoCursado) || (descriptor.IdDescritor === descriptors[i].IdDescritor &&
+      descriptor.AnoCursado === descriptors[i].AnoCursado)
     );
 
-    // Ano cursado e código descritor
+    // Ou validação seria Ano cursado e código descritor
 
     const resultDescriptors = {
       DescricaoDescritor: descriptors[i].DescricaoDescritor,
