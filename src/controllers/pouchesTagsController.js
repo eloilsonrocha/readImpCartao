@@ -67,7 +67,7 @@ const pouchesTags = async (request, response) => {
     const schoolsLineSplit = line.split(";");
 
     schools.push({
-      nameSchool: schoolsLineSplit[0].replace("ESCOLA MUNICIPAL ", "").replace("PROFESSORA ", "PROFª ").replace("PROFESSOR ", "PROF "),
+      nameSchool: schoolsLineSplit[0].replace("ESCOLA MUNICIPAL ", "").replace("PROFESSORA ", "PROFª ").replace("PROFESSOR ", "PROF ").replace("FRANCISCO ", "FCO ").replace("FRANCISCA ", "FCA "),
       studant: schoolsLineSplit[1],
       class: schoolsLineSplit[4],
       currentYear: schoolsLineSplit[5].toLocaleUpperCase().includes("EJA")
