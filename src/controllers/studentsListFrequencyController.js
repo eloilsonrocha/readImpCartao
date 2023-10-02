@@ -46,24 +46,24 @@ const studentsListFrequency = async (request, response) => {
       school.currentYear === filter.currentYear &&
       school.class === filter.class)
 
-    const dataStudents = students.map((studentOfClass, index) =>
+    const dataStudents = students.map((student, index) =>
       [{
         order: index + 1,
-        nameSchoolStudent: studentOfClass.student,
-        birthDate: studentOfClass.birthDate,
-        userCPFNIS: studentOfClass.userCPFNIS
+        nameSchoolStudent: student.student,
+        birthDate: student.birthDate,
+        userCPFNIS: student.userCPFNIS
       }]
     )
+
+    const studentsOfClass = dataStudents.flatMap(student => student).flat();
 
     const countStudents = dataStudents.length
 
     return {
       ...school,
-      classes: dataStudents,
+      studentsOfClass,
       countStudents
     }
-
-
   });
 
 
@@ -72,6 +72,8 @@ const studentsListFrequency = async (request, response) => {
   result.sort((a, b) => a.nameSchool > b.nameSchool ? 1 : a.nameSchool < b.nameSchool ? -1 : 0)
 
   return response.json(result);
+
+  
 
 };
 
