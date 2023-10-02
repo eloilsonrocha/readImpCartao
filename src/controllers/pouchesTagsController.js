@@ -4,7 +4,7 @@ const ejs = require("ejs");
 const path = require("path");
 const generatorPDFPuppeteer = require("../controllers/generatorPDFPuppeteerController");
 const clients = require("../util/clientsList");
-const QRCode = require("qrcode");
+// const QRCode = require("qrcode");
 const moment = require("moment");
 const crypto = require("crypto");
 const selectTemplate = require("../util/selectTemplate");
@@ -62,12 +62,12 @@ const pouchesTags = async (request, response) => {
   });
 
   const schools = [];
-
+  
   for await (let line of schoolsLine) {
     const schoolsLineSplit = line.split(";");
 
-    schools.push({
-      nameSchool: schoolsLineSplit[0].replace("ESCOLA MUNICIPAL ", "").replace("PROFESSORA ", "PROFª ").replace("PROFESSOR ", "PROF ").replace("FRANCISCO ", "FCO ").replace("FRANCISCA ", "FCA "),
+      schools.push({
+      nameSchool: schoolsLineSplit[0].replace("ESCOLA MUNICIPAL ", "").replace("PROFESSORA ", "PROFª ").replace("PROFESSOR ", "PROF ").replace("FRANCISCO ", "FCO ").replace("FRANCISCA ", "FCA ").replace("CENTRO DE EDUCACAO INFANTIL ", "CEI "),
       studant: schoolsLineSplit[1],
       class: schoolsLineSplit[4],
       currentYear: schoolsLineSplit[5].toLocaleUpperCase().includes("EJA")
@@ -75,6 +75,8 @@ const pouchesTags = async (request, response) => {
         : schoolsLineSplit[5] + "º ANO",
       period: schoolsLineSplit[7],
     });
+
+    console.log(schoolsLineSplit);
   }
 
   const items = [];
@@ -82,14 +84,14 @@ const pouchesTags = async (request, response) => {
   for (let i = 1; i < schools.length - 1; i += 1) {
     const dataURL = `${schools[i].nameSchool} ${schools[i].currentYear} ${schools[i].class}`;
 
-    const qrcodeDataURL = await QRCode.toDataURL(dataURL);
+    // const qrcodeDataURL = await QRCode.toDataURL(dataURL);
 
     items.push({
       nameSchool: schools[i].nameSchool,
       currentYear: schools[i].currentYear,
       class: schools[i].class,
       period: schools[i].period,
-      qrcodeURL: qrcodeDataURL,
+      // qrcodeURL: qrcodeDataURL,
     });
   }
 
@@ -164,12 +166,12 @@ const pouchesTags = async (request, response) => {
 
     const fileUrl = `${process.env.APP_URL}${process.env.PORT}/tags/${fileName}`
     
-    return response
-      .status(201)
-      .json(
-        `Clique no link para abrir o arquivo: ${fileUrl}`
-      );
-    // return response.send(html)
+    // return response
+    //   .status(201)
+    //   .json(
+    //     `Clique no link para abrir o arquivo: ${fileUrl}`
+    //   );
+    return response.send(items)
   });
 };
 
