@@ -166,12 +166,12 @@ const pouchesTags = async (request, response) => {
 
     const fileUrl = `${process.env.APP_URL}${process.env.PORT}/tags/${fileName}`
     
-    // return response
-    //   .status(201)
-    //   .json(
-    //     `Clique no link para abrir o arquivo: ${fileUrl}`
-    //   );
-    return response.send(items)
+    return response
+      .status(201)
+      .json(
+        `Clique no link para abrir o arquivo: ${fileUrl}`
+      );
+    // return response.send(items)
   });
 };
 
