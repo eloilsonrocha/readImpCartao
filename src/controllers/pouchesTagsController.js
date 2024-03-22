@@ -70,8 +70,8 @@ const pouchesTags = async (request, response) => {
       nameSchool: schoolsLineSplit[0].replace("ESCOLA MUNICIPAL ", "").replace("PROFESSORA ", "PROFª ").replace("PROFESSOR ", "PROF ").replace("FRANCISCO ", "FCO ").replace("FRANCISCA ", "FCA ").replace("CENTRO DE EDUCACAO INFANTIL ", "CEI "),
       studant: schoolsLineSplit[1],
       class: schoolsLineSplit[4],
-      currentYear: schoolsLineSplit[5].toLocaleUpperCase().includes("EJA")
-        ? schoolsLineSplit[5]
+      currentYear: schoolsLineSplit[5].length > 1
+        ? schoolsLineSplit[5].toUpperCase()
         : schoolsLineSplit[5] + "º ANO",
       period: schoolsLineSplit[7],
     });
