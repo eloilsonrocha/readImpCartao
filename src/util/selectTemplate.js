@@ -39,6 +39,9 @@ const selectTemplate = (response, client ) => {
     case "CIDADE OCIDENTAL":
       templatName = "templatCidadeOcidental.ejs"
       break;
+    case "MORADA NOVA":
+      templatName = "templatMoradaNova.ejs"
+      break;
     default:
       return response.status(400).json({ message: 'Cliente inexistente ou nome digitado errado', example: clients })
   }
