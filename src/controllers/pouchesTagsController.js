@@ -64,16 +64,34 @@ const pouchesTags = async (request, response) => {
   const schools = [];
   
   for await (let line of schoolsLine) {
-    const schoolsLineSplit = line.split(";");
+    // remove espaços e \r (muito comum em CSV do Windows)
+    line = (line || "").trim();
+    if (!line) continue;
 
-      schools.push({
-      nameSchool: schoolsLineSplit[0].replace("ESCOLA MUNICIPAL ", "").replace("PROFESSORA ", "PROFª ").replace("PROFESSOR ", "PROF ").replace("FRANCISCO ", "FCO ").replace("FRANCISCA ", "FCA ").replace("CENTRO DE EDUCACAO INFANTIL ", "CEI "),
-      studant: schoolsLineSplit[1],
-      class: schoolsLineSplit[4],
-      currentYear: schoolsLineSplit[5].length > 1
-        ? schoolsLineSplit[5].toUpperCase()
-        : schoolsLineSplit[5] + "º ANO",
-      period: schoolsLineSplit[7],
+    const schoolsLineSplit = line.split(";").map((v) => (v ?? "").trim());
+
+    // se sua regra exige pelo menos até o índice 7, então precisa ter 8 colunas
+    if (schoolsLineSplit.length < 8) {
+      console.log("Linha inválida (poucas colunas):", schoolsLineSplit.length, schoolsLineSplit);
+      continue;
+    }
+
+    const yearRaw = schoolsLineSplit[5]; // agora sempre string ("" se vier vazio)
+    const currentYear =
+      yearRaw.length > 1 ? yearRaw.toUpperCase() : `${yearRaw}º ANO`;
+
+    schools.push({
+      nameSchool: (schoolsLineSplit[0] || "")
+        .replace("ESCOLA MUNICIPAL ", "")
+        .replace("PROFESSORA ", "PROFª ")
+        .replace("PROFESSOR ", "PROF ")
+        .replace("FRANCISCO ", "FCO ")
+        .replace("FRANCISCA ", "FCA ")
+        .replace("CENTRO DE EDUCACAO INFANTIL ", "CEI "),
+      studant: schoolsLineSplit[1] || "",
+      class: schoolsLineSplit[4] || "",
+      currentYear,
+      period: schoolsLineSplit[7] || "",
     });
 
     console.log(schoolsLineSplit);
