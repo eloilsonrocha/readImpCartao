@@ -75,8 +75,6 @@ const pouchesTags = async (request, response) => {
         : schoolsLineSplit[5] + "º ANO",
       period: schoolsLineSplit[7],
     });
-
-    console.log(schoolsLineSplit);
   }
 
   const items = [];
