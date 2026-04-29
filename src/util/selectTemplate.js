@@ -1,11 +1,11 @@
 const clients = require("./clientsList");
 
-const selectTemplate = (response, client ) => {
+const selectTemplate = (response, client) => {
 
   let templatName = ""
   let clientUpperCase = client.toUpperCase();
 
-    switch (clientUpperCase) {
+  switch (clientUpperCase) {
     case "AQUIRAZ":
       templatName = "templatAquiraz.ejs"
       break;
@@ -44,6 +44,9 @@ const selectTemplate = (response, client ) => {
       break;
     case "CRUZ":
       templatName = "templatCruz.ejs"
+      break;
+    case "ACREÚNA":
+      templatName = "templatAcreuna.ejs"
       break;
     default:
       return response.status(400).json({ message: 'Cliente inexistente ou nome digitado errado', example: clients })
